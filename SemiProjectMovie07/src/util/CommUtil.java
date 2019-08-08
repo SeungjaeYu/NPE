@@ -2,9 +2,9 @@ package util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.TimeZone;
 
 
 
@@ -17,38 +17,28 @@ import java.util.TimeZone;
  */
 
 public class CommUtil {
-	
+	protected SimpleDateFormat loginSdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
 	Scanner sc = new Scanner(System.in);
 	
-	public static void main(String[] args) {
-		CommUtil commUtil = new CommUtil();
-		System.out.println(commUtil.getTimeZone());
-		
 	
+	/**
+	 * 년/월/일 시:분:초를 구하여 문자열로 반환한다.
+	 * @return
+	 */
+	public String getDate() {
+		return getDate("yyyy/MM/dd HH:mm:ss");
 	}
 	
 	/**
-	 * 현재 서울의 년/월/일 시:분:초를 구하여 문자열로 반환한다.
-	 * @return
-	 */
-	public String getTimeZone() {
-		return getTimeZone("yyyy/MM/dd HH:mm:ss");
-	}
-	
-	/**
-	 * 현재 서울의 formatString를 구하여 문자열로 반환한다.
+	 * formatString를 구하여 문자열로 반환한다.
 	 * @return
 	 */
 	
-	public String getTimeZone(String formatString) {
-		TimeZone time;
-        Date date = new Date();
-        DateFormat df = new SimpleDateFormat(
-        		formatString);
-        
-        time = TimeZone.getTimeZone("Asia/Seoul");
-        df.setTimeZone(time);
-        return df.format(date);
+	public String getDate(String formatString) {
+		Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        DateFormat df = new SimpleDateFormat(formatString);
+        return df.format(c);
 	}
 	
 
@@ -59,8 +49,9 @@ public class CommUtil {
 	 * @param val
 	 * @return
 	 */
-	public int getIntScanner() {
-			return Integer.parseInt(sc.nextLine());
+	public String getStr(String msg) {
+		System.out.println(msg);
+		return sc.nextLine();
 	}
 	/**
 	 * 
@@ -69,8 +60,8 @@ public class CommUtil {
 	 * @param val
 	 * @return
 	 */
-	public String getStrScanner() {
-		return sc.nextLine();
+	public int getInt(String msg) {
+		return Integer.parseInt(getStr(msg));
 	}
 	
 	

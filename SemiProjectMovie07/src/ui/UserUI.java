@@ -1,5 +1,102 @@
 package ui;
 
-public class UserUI {
+import java.util.Date;
+import java.util.List;
 
+import dao.UserDAO;
+import util.CommUtil;
+import vo.UserVO;
+
+public class UserUI extends CommUtil {
+	
+	
+	private UserDAO dao;
+	
+	public UserUI(UserDAO dao) {
+		this.dao = dao;
+	}
+	
+	
+	
+	public void join() {
+		UserVO vo = new UserVO();
+		String id = getStr("아이디를 입력하세요 : ");
+		String passwd = getStr("비밀번호를 입력하세요 : ");
+		String passhint = getStr("비밀번호 힌트를 입력하세요 : ");
+		String name = getStr("이름을 입력하세요 : ");
+		String gender = getStr("성별(F/M) : ");
+		int phone = getInt("휴대폰번호를 입력하세요 : ");
+	
+		
+		vo.setId(id);
+		vo.setPasswd(passwd);
+		vo.setPasshint(passhint);
+		vo.setName(name);
+		vo.setGender(gender);
+		vo.setPhone(phone);
+		int no = dao.insertUser(vo);
+		
+		if (no == 0) {
+			System.out.println("============================");
+			System.out.println("중복된 아이디의 회원이 있습니다!");
+			return;
+		}
+		System.out.println("============================");
+		System.out.println("회원가입이 완료되었습니다.");
+	}
+	
+	public void findUser() {
+		
+		List<UserVO> list = dao.selectUser();
+		System.out.println("비밀번호 찾기 메뉴를 선택하셨습니다.\n\n\n");
+		
+		
+		String findStr = getStr("비밀번호를 찾을 아이디를 입력해주세요.");
+		for (UserVO vo : list) {
+			if (!vo.getId().equals(findStr)) continue;
+			
+			String findHint = getStr("비밀번호 힌트를 입력해주세요.");
+			
+			if	(!vo.getPasshint().equals(findHint)) continue;
+			
+			System.out.println("∴비밀번호 찾기에 성공하셨습니다.∴");
+			System.out.println("--------------------");
+			System.out.println("아이디 : " + vo.getId());
+			System.out.println("비밀번호 : " + vo.getPasswd());
+			System.out.println("--------------------");
+			System.out.println("메인메뉴로 돌아갑니다");
+			return;
+					
+		}
+		
+		System.out.println("비밀번호 찾기에 실패하셨습니다.");
+	
+	}
+	
+	public String loginUser() {
+		List<UserVO> list = dao.selectUser();
+		System.out.println("영화예매 계정으로 로그인.\n\n\n");
+		
+		
+		String id = getStr("아이디를 입력해주세요 : ");
+		String passwd = getStr("비밀번호를 입력해주세요 : ");
+		for (UserVO vo : list) {
+			if (!(vo.getId().equals(id) && vo.getPasswd().equals(passwd))) continue;
+			System.out.println(vo.getId() + "님 환영합니다.");
+			System.out.println(loginSdf.format(new Date()) + "에 로그인 하셨습니다.");
+			id = vo.getId();
+			System.out.println("--------------------------------");
+			return id;
+			
+		}
+		
+		System.out.println("∴아이디나 비밀번호가 바르게 입력되지 않았습니다.");
+		System.out.println("다시 로그인해주세요.");
+		return "";
+	}
+	
+	
+	
+	
+	
 }
