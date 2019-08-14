@@ -38,7 +38,7 @@ public class CommUtil {
 		Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         DateFormat df = new SimpleDateFormat(formatString);
-        return df.format(c);
+        return df.format(c.getTime());
 	}
 	
 
@@ -50,7 +50,7 @@ public class CommUtil {
 	 * @return
 	 */
 	public static String getStr(String msg) {
-		System.out.println(msg);
+		System.out.print(msg);
 		return sc.nextLine();
 	}
 	/**

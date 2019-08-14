@@ -1,20 +1,13 @@
 package ui;
 
-import dao.UserDAO;
+
 import util.CommUtil;
-import vo.UserVO;
 
-public class MainUI extends CommUtil {
+public class MainUI {
 
-	UserDAO userDao = new UserDAO();
+
+	UserUI userUI = new UserUI();
 	
-	UserUI user = new UserUI(userDao);
-	
-	UserVO userVO = null;
-	
-	String userId = "";
-	
-	boolean loginChk = false;
 	
 	public void service() {
 		System.out.println("영화예매 프로그램");
@@ -22,14 +15,12 @@ public class MainUI extends CommUtil {
 			switch (menu()) {
 			
 			
-			case 1: if (!loginChk) loginUser();    else logout();    break;
-			case 2: if (!loginChk) joinUser();   else selectUser();      	break;
+			case 1: if (!userUI.loginChk) userUI.loginUser(); else userUI.logout();	break;
+					
+			case 2: if (!userUI.loginChk) userUI.join();  else userUI.selectUser();	break;
+			
 			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
-			case 4: if (!loginChk) quit();    	 /*else recycleEMail(); */  break;
-			case 5: if (loginChk) {
-										logout();
-										break; 
-								  }
+			case 4:	/* if (!loginChk) quit(); */    	 /*else recycleEMail(); */  break;
 			case 0: quit();
 
 			default:
@@ -43,13 +34,13 @@ public class MainUI extends CommUtil {
 	
 
 	private int menu() {
-		if (!loginChk) {
-			System.out.println("□□□□□□□□□□□□□□□□□□□");
+		if (!userUI.loginChk) {
+			System.out.println("--------------------------------");
 			System.out.println("1. 로그인");
 			System.out.println("2. 화원가입");
 			System.out.println("3. 영화조회");
 			System.out.println("0. 종료");
-			System.out.println("□□□□□□□□□□□□□□□□□□□");
+			System.out.println("--------------------------------");
 		} else {
 			System.out.println("--------------------------------");
 			System.out.println("1. 로그아웃");
@@ -60,7 +51,7 @@ public class MainUI extends CommUtil {
 			System.out.println("--------------------------------");
 		}
 		
-		return getInt("원하시는 서비스 번호를 입력해주세요 : ");
+		return CommUtil.getInt("원하시는 서비스 번호를 입력해주세요 : ");
 		
 	}
 	
@@ -70,41 +61,8 @@ public class MainUI extends CommUtil {
 		System.exit(0);
 	}
 	
-	/**
-	 *  로그인 관련 처리 메소드
-	 * 
-	 */
-	private void selectUser() {
-		System.out.println("-------------------------------------");
-		System.out.println("아이디 : " + userVO.getUserId());
-		System.out.println("이메일 : " + userVO.getUserEmail());
-		System.out.println("가입일 : " + userVO.getRegDate());
-		System.out.println("영화예매수 : " + userVO.getReservCnt());
-		System.out.println("-------------------------------------");
-	}
-	
-	private void loginUser() {
-		userVO = user.loginUser();
-		if (!userVO.getUserId().equals("")) loginChk = true;
-	}
 	
 	
-	private void logout() {
-		loginChk = false;
-		userId = "";
-		System.out.println("안전하게 로그아웃 되었습니다.");
-	}
-	
-	
-	/**
-	 * 
-	 *  유저정보 관련 처리 메소드
-	 */
-	
-	
-	private void joinUser() {
-		user.join();
-	}
 	/*
 	private void findUser() {
 		user.findUser();

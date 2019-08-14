@@ -74,10 +74,17 @@ public class UserDAO {
 			con = ConnectionPool.getConnection();
 			
 			StringBuffer sql = new StringBuffer();
+			
+
+
+			
 			sql.append("select * ");
-			sql.append("  from tb_user");
-			sql.append(" where user_id = ? ");
-			sql.append("   and password = ? ");
+			sql.append("  from tb_user t");
+			sql.append(" inner join tb_grade g");
+			sql.append(" on t.reserv_cnt between g.grade_min_reserv and g.grade_max_reserv");
+			sql.append(" where t.user_id = ? ");
+			sql.append("   and t.password = ? ");
+			
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, userId);
 			pstmt.setString(2, password);
@@ -87,9 +94,12 @@ public class UserDAO {
 				
 				user.setUserNo(rs.getInt("user_no"));
 				user.setUserId(rs.getString("user_id"));
+				user.setPassword(rs.getString("password"));
 				user.setUserEmail(rs.getString("user_email"));
 				user.setRegDate(rs.getDate("reg_date"));
 				user.setReservCnt(rs.getInt("reserv_cnt"));
+				user.setGradeName(rs.getString("grade_name"));
+				user.setDiscountRate(rs.getDouble("discount_rate"));
 				return user;
 			}
 			
@@ -104,6 +114,21 @@ public class UserDAO {
 	}
 	
 	
+	public int updateUser(UserVO userVO) {
+		int result = 0;
+		try {
+			result = SqlExecutor.update(
+	                   "update tb_user set user_email = ? where user_no = ?",
+	                   userVO.getUserEmail(), userVO.getUserNo());
+			
+		} catch (Exception e) {
+			//e.getMessage();
+			e.printStackTrace();
+		} 
+		return result;
+		
+	}
+	
 	public int insertUser(UserVO vo) {
 		int result = 0;
 		try {
@@ -116,26 +141,19 @@ public class UserDAO {
 		} 
 		return result;
 		
-		
-		/*
+	}
+	
+	public int deleteUser(UserVO vo) {
+		int result = 0;
 		try {
-			Connection con = ConnectionPool.getConnection();
-			
-			
-		}
-		List<UserVO> list = selectUser();
-		for (UserVO user : list) {
-			if (user.getId().equals(vo.getId())) {
-				return 0;
-			}
-		}
-		
-		String user = ++pos + "@@" + vo.getId() + "@@" + vo.getPasswd() + "@@" + vo.getPasshint() + "@@"
-				      + vo.getName() + "@@" + vo.getGender() + "@@" + vo.getPhone();
-		fileWrite(path, user, true);
-		return 1;
-		*/
-		
+			result = SqlExecutor.update(
+	                   "delete tb_user where user_no = ?",
+	                   vo.getUserNo());
+		} catch (Exception e) {
+			//e.getMessage();
+			//e.printStackTrace();
+		} 
+		return result;
 		
 	}
 	/*
