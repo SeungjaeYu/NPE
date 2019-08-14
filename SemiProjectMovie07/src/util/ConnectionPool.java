@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionPool {
-	private static final int INIT_COUNT = 3;
+	private static final int INIT_COUNT = 10;
 	private static List<Connection> free = new ArrayList<>();
 	private static List<Connection> used = new ArrayList<>();
 	
