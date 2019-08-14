@@ -1,6 +1,6 @@
 package vo;
 
-public class InningVO {
+public class InningVO extends TheaterVO{
 	private int inningNo;
 	private int movieNo;
 	private int movieInning;
