@@ -1,70 +1,70 @@
 package vo;
 
+import java.util.Date;
+
 public class UserVO {
-	private int no;
-	private String id;
-	private String passwd;
-	private String passhint;
-	private String name;
-	private String gender;
-	private int phone;
+	private int userNo;
+	private String userId;
+	private String password;
+	private String userEmail;
+	private Date regDate;
+	private int reservCnt;
 	public UserVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserVO(int no, String id, String passwd, String passhint, String name, String gender, int phone) {
+	public UserVO(int userNo, String userId, String password, String userEmail, Date regDate, int reservCnt) {
 		super();
-		this.no = no;
-		this.id = id;
-		this.passwd = passwd;
-		this.passhint = passhint;
-		this.name = name;
-		this.gender = gender;
-		this.phone = phone;
+		this.userNo = userNo;
+		this.userId = userId;
+		this.password = password;
+		this.userEmail = userEmail;
+		this.regDate = regDate;
+		this.reservCnt = reservCnt;
 	}
-	public int getNo() {
-		return no;
+	public int getUserNo() {
+		return userNo;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getPasswd() {
-		return passwd;
+	public String getPassword() {
+		return password;
 	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getPasshint() {
-		return passhint;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setPasshint(String passhint) {
-		this.passhint = passhint;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	public String getName() {
-		return name;
+	public Date getRegDate() {
+		return regDate;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
-	public String getGender() {
-		return gender;
+	public int getReservCnt() {
+		return reservCnt;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setReservCnt(int reservCnt) {
+		this.reservCnt = reservCnt;
 	}
-	public int getPhone() {
-		return phone;
+	
+	@Override
+	public String toString() {
+		return "UserVO [userNo=" + userNo + ", userId=" + userId + ", password=" + password + ", userEmail=" + userEmail
+				+ ", regDate=" + regDate + ", reservCnt=" + reservCnt + "]";
 	}
-	public void setPhone(int phone) {
-		this.phone = phone;
-	}
-
+	
 	
 	
 }

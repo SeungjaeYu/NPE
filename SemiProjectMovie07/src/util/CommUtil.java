@@ -18,14 +18,14 @@ import java.util.Scanner;
 
 public class CommUtil {
 	protected SimpleDateFormat loginSdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
-	Scanner sc = new Scanner(System.in);
+	private static Scanner sc = new Scanner(System.in);
 	
 	
 	/**
 	 * 년/월/일 시:분:초를 구하여 문자열로 반환한다.
 	 * @return
 	 */
-	public String getDate() {
+	public static String getDate() {
 		return getDate("yyyy/MM/dd HH:mm:ss");
 	}
 	
@@ -34,7 +34,7 @@ public class CommUtil {
 	 * @return
 	 */
 	
-	public String getDate(String formatString) {
+	public static String getDate(String formatString) {
 		Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         DateFormat df = new SimpleDateFormat(formatString);
@@ -49,7 +49,7 @@ public class CommUtil {
 	 * @param val
 	 * @return
 	 */
-	public String getStr(String msg) {
+	public static String getStr(String msg) {
 		System.out.println(msg);
 		return sc.nextLine();
 	}
@@ -60,7 +60,7 @@ public class CommUtil {
 	 * @param val
 	 * @return
 	 */
-	public int getInt(String msg) {
+	public static int getInt(String msg) {
 		return Integer.parseInt(getStr(msg));
 	}
 	

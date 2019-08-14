@@ -1,13 +1,12 @@
 package ui;
 
-import java.util.Date;
 import java.util.List;
 
 import dao.UserDAO;
 import util.CommUtil;
 import vo.UserVO;
 
-public class UserUI extends CommUtil {
+public class UserUI {
 	
 	
 	private UserDAO dao;
@@ -20,20 +19,13 @@ public class UserUI extends CommUtil {
 	
 	public void join() {
 		UserVO vo = new UserVO();
-		String id = getStr("아이디를 입력하세요 : ");
-		String passwd = getStr("비밀번호를 입력하세요 : ");
-		String passhint = getStr("비밀번호 힌트를 입력하세요 : ");
-		String name = getStr("이름을 입력하세요 : ");
-		String gender = getStr("성별(F/M) : ");
-		int phone = getInt("휴대폰번호를 입력하세요 : ");
-	
+		String userId = CommUtil.getStr("아이디를 입력하세요 : ");
+		String password = CommUtil.getStr("비밀번호를 입력하세요 : ");
+		String userEmail = CommUtil.getStr("이메일 주소를 입력하세요 : ");
 		
-		vo.setId(id);
-		vo.setPasswd(passwd);
-		vo.setPasshint(passhint);
-		vo.setName(name);
-		vo.setGender(gender);
-		vo.setPhone(phone);
+		vo.setUserId(userId);
+		vo.setPassword(password);
+		vo.setUserEmail(userEmail);
 		int no = dao.insertUser(vo);
 		
 		if (no == 0) {
@@ -44,25 +36,25 @@ public class UserUI extends CommUtil {
 		System.out.println("============================");
 		System.out.println("회원가입이 완료되었습니다.");
 	}
-	
+	/*
 	public void findUser() {
 		
 		List<UserVO> list = dao.selectUser();
 		System.out.println("비밀번호 찾기 메뉴를 선택하셨습니다.\n\n\n");
 		
 		
-		String findStr = getStr("비밀번호를 찾을 아이디를 입력해주세요.");
+		String findStr = CommUtil.getStr("비밀번호를 찾을 아이디를 입력해주세요.");
 		for (UserVO vo : list) {
-			if (!vo.getId().equals(findStr)) continue;
+//			if (!vo.getId().equals(findStr)) continue;
 			
-			String findHint = getStr("비밀번호 힌트를 입력해주세요.");
+			String findHint = CommUtil.getStr("비밀번호 힌트를 입력해주세요.");
 			
-			if	(!vo.getPasshint().equals(findHint)) continue;
+//			if	(!vo.getPasshint().equals(findHint)) continue;
 			
 			System.out.println("∴비밀번호 찾기에 성공하셨습니다.∴");
 			System.out.println("--------------------");
-			System.out.println("아이디 : " + vo.getId());
-			System.out.println("비밀번호 : " + vo.getPasswd());
+//			System.out.println("아이디 : " + vo.getId());
+//			System.out.println("비밀번호 : " + vo.getPasswd());
 			System.out.println("--------------------");
 			System.out.println("메인메뉴로 돌아갑니다");
 			return;
@@ -72,27 +64,24 @@ public class UserUI extends CommUtil {
 		System.out.println("비밀번호 찾기에 실패하셨습니다.");
 	
 	}
+	*/
 	
-	public String loginUser() {
-		List<UserVO> list = dao.selectUser();
+	
+	
+	
+	public UserVO loginUser() {
 		System.out.println("영화예매 계정으로 로그인.\n\n\n");
 		
-		
-		String id = getStr("아이디를 입력해주세요 : ");
-		String passwd = getStr("비밀번호를 입력해주세요 : ");
-		for (UserVO vo : list) {
-			if (!(vo.getId().equals(id) && vo.getPasswd().equals(passwd))) continue;
-			System.out.println(vo.getId() + "님 환영합니다.");
-			System.out.println(loginSdf.format(new Date()) + "에 로그인 하셨습니다.");
-			id = vo.getId();
-			System.out.println("--------------------------------");
-			return id;
-			
+		String userId = CommUtil.getStr("아이디를 입력해주세요 : ");
+		String password = CommUtil.getStr("비밀번호를 입력해주세요 : ");
+		UserVO user = dao.selectOneUser(userId, password);
+		if (user == null) {
+			System.out.println("∴아이디나 비밀번호가 바르게 입력되지 않았습니다.");
+			System.out.println("다시 로그인해주세요.");
+			return null;
 		}
 		
-		System.out.println("∴아이디나 비밀번호가 바르게 입력되지 않았습니다.");
-		System.out.println("다시 로그인해주세요.");
-		return "";
+		return user;
 	}
 	
 	
