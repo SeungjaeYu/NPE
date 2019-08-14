@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-public class UserVO extends GradeVO{
+public class UserVO extends GradeVO {
 	private int userNo;
 	private String userId;
 	private String password;

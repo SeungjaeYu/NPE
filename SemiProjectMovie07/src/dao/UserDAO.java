@@ -29,8 +29,8 @@ public class UserDAO {
 			StringBuffer sql = new StringBuffer();
 		
 			sql.append("select * ");
-			sql.append("  from tb_board");
-			sql.append(" order by no desc ");
+			sql.append("  from tb_user");
+			sql.append(" order by user_no desc ");
 			
 			pstmt = con.prepareStatement(sql.toString());
 			
