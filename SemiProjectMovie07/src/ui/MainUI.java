@@ -51,7 +51,7 @@ public class MainUI {
 			System.out.println("5. 영화삭제");
 			System.out.println("0. 종료");
 			System.out.println("--------------------------------");
-		} else {
+		} else { 
 			System.out.println("--------------------------------");
 			System.out.println("1. 로그아웃");
 			System.out.println("2. 회원정보");

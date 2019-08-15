@@ -118,7 +118,7 @@ public class UserUI {
 		System.out.println("0. 이전");
 	} 
 	
-	
+	 
 	
 	/**
 	 * 유저 조회
