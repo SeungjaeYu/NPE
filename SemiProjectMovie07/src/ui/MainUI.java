@@ -7,7 +7,7 @@ public class MainUI {
 
 
 	UserUI userUI = new UserUI();
-	
+	TheaterUI theaterUI = new TheaterUI();
 	
 	public void service() {
 		System.out.println("영화예매 프로그램");
@@ -20,7 +20,7 @@ public class MainUI {
 			case 2: if (userUI.loginChk && userUI.adminChk) userUI.selectUserList(); else if (!userUI.loginChk) userUI.join();  else userUI.selectUser();	break;
 			
 			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
-			case 4:	/* if (!loginChk) quit(); */    	 /*else recycleEMail(); */  break;
+			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater();  break;
 			case 0: quit();
 
 			default:
