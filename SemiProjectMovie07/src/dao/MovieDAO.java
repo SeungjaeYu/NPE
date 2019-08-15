@@ -34,15 +34,6 @@ public class MovieDAO {
 			pstmt = con.prepareStatement(sql.toString());
 			
 			ResultSet rs = pstmt.executeQuery();
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int count = rsmd.getColumnCount();
-//			System.out.println("------------------------------");
-//			for (int i = 1; i <= count; i++) {
-//				String columnName = rsmd.getColumnName(i);
-//				
-//				System.out.print(columnName + "\t");
-//			}
-//			System.out.println("\n------------------------------");
 			while(rs.next()) {
 				MovieVO movie = new MovieVO();
 				
@@ -54,14 +45,6 @@ public class MovieDAO {
 				list.add(movie);
 				
 			}
-			
-//			for (MovieVO movie: list) {
-//				System.out.print(movie.getMovieNo() + "\t\t");
-//				System.out.print(movie.getMovieTitle() + "\t\t");
-//				System.out.print(movie.getMovieDirector() + "\t\t");
-//				System.out.print(movie.getMovieActor() + "\t\t");
-//				System.out.println(movie.getViewingGrade());
-//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -104,28 +87,6 @@ public class MovieDAO {
 			e.printStackTrace();
 		}
 		return 0;
-	}
-	
-	public static void main(String[] args) {
-		System.out.println("무비 메인 ok");
-		// selectMovie()
-//		new MovieDAO().selectMovie();
-		// ---------- END selectMovie()
-		
-		// insertMovie()
-		MovieVO movie = new MovieVO();
-//		movie.setMovieNo(11);
-		movie.setMovieTitle(null);
-		movie.setMovieActor("김배우22");
-		movie.setMovieDirector("박감독22");
-		movie.setViewingGrade("청불");
-		// ---------- END insertMovie()
-//		new MovieDAO().insertMovie(movie);
-		
-		// deleteMovie()
-		int no = 14;
-		new MovieDAO().deleteMovie(no);
-		// ---------- END deleteMovie()
 	}
 }
  
