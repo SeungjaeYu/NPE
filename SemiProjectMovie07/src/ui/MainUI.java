@@ -7,6 +7,8 @@ public class MainUI {
 
 
 	UserUI userUI = new UserUI();
+
+	
 	TheaterUI theaterUI = new TheaterUI();
 	
 	public void service() {
@@ -20,6 +22,9 @@ public class MainUI {
 			case 2: if (userUI.loginChk && userUI.adminChk) userUI.selectUserList(); else if (!userUI.loginChk) userUI.join();  else userUI.selectUser();	break;
 			
 			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
+			
+			case 3 : new InningUI().showInningList();
+			
 			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater();  break;
 			case 0: quit();
 
