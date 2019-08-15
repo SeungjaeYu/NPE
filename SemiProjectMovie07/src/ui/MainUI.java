@@ -17,7 +17,7 @@ public class MainUI {
 			
 			case 1: if (!userUI.loginChk) userUI.loginUser(); else userUI.logout();	break;
 					
-			case 2: if (!userUI.loginChk) userUI.join();  else userUI.selectUser();	break;
+			case 2: if (userUI.loginChk && userUI.adminChk) userUI.selectUserList(); else if (!userUI.loginChk) userUI.join();  else userUI.selectUser();	break;
 			
 			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
 			case 4:	/* if (!loginChk) quit(); */    	 /*else recycleEMail(); */  break;
@@ -25,6 +25,7 @@ public class MainUI {
 
 			default:
 				System.out.println("잘못된 번호입니다. 다시 입력하세요.");
+
 				break;
 			}
 		}
@@ -39,6 +40,15 @@ public class MainUI {
 			System.out.println("1. 로그인");
 			System.out.println("2. 화원가입");
 			System.out.println("3. 영화조회");
+			System.out.println("0. 종료");
+			System.out.println("--------------------------------");
+		} else if (userUI.loginChk && userUI.adminChk) {
+			System.out.println("--------------------------------");
+			System.out.println("1. 로그아웃");
+			System.out.println("2. 회원정보");
+			System.out.println("3. 영화조회");
+			System.out.println("4. 영화등록");
+			System.out.println("5. 영화삭제");
 			System.out.println("0. 종료");
 			System.out.println("--------------------------------");
 		} else {

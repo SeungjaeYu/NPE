@@ -19,7 +19,6 @@ public class UserDAO {
 	 * 
 	 * @return
 	 */
-	
 	public List<UserVO> selectAdminList() {
 		List<UserVO> userList = new ArrayList<>();
 		Connection con = null;

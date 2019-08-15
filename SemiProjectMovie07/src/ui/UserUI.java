@@ -1,6 +1,8 @@
 package ui;
 
 
+import java.util.List;
+
 import dao.UserDAO;
 import util.CommUtil;
 import vo.UserVO;
@@ -11,7 +13,7 @@ public class UserUI {
 	
 	boolean loginChk = false;
 	UserVO vo = null;
-	
+	boolean adminChk = false;
 	UserDAO dao = new UserDAO();
 	
 	
@@ -85,10 +87,37 @@ public class UserUI {
 			System.out.println("다시 로그인해주세요.");
 			return;
 		}
+		if (userVO.getUserId().equals("admin")) {
+			adminChk = true;
+		}
 		System.out.println("환영합니다. " + userVO.getUserId() + "님\n" + CommUtil.getDate() + "에 로그인 하셨습니다.");
 		loginChk = true;
 		vo = userVO;
 	}
+	
+	
+	public void selectUserList() {
+		List<UserVO> userList = dao.selectAdminList();
+		System.out.println("회원정보");
+		System.out.println("아이디\t이메일\t가입일\t등급");
+		System.out.println("----------------------------------------");
+		if (userList.isEmpty()) {
+			System.out.println("아직 가입한 회원이 없습니다!");
+			System.out.println("----------------------------------------");
+			return;
+		}
+		
+		for (UserVO userVO : userList) {
+			System.out.print(userVO.getUserId() + "\t");
+			System.out.print( userVO.getUserEmail() + "\t");
+			System.out.print(userVO.getRegDate() + "\t");
+			System.out.println(userVO.getGradeName() + "\t");
+			
+		}
+		System.out.println("----------------------------------------");
+		System.out.println("0. 이전");
+	} 
+	
 	
 	
 	/**
@@ -148,6 +177,10 @@ public class UserUI {
 	public void deleteUser() {
 
 		String delYN = CommUtil.getStr("정말로 회원 탈퇴를 하시겠습니까?(Y/N) ");
+		if (adminChk) {
+			System.out.println("관리자는 아이디 삭제를 하실 수 없습니다!!");
+			return;
+		}
 		if (delYN.equalsIgnoreCase("Y")) {
 			int no = dao.deleteUser(vo);
 			if (no == 0) {
@@ -183,6 +216,7 @@ public class UserUI {
 		System.out.println("에 안전하게 로그아웃 되었습니다.");
 		vo = null;
 		loginChk = false;
+		adminChk = false;
 	}
 	
 	
@@ -197,5 +231,9 @@ public class UserUI {
 	}
 	
 	
+	
+	public void chkAdmin() {
+		
+	}
 	
 }
