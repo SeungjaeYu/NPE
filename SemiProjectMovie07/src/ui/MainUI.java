@@ -11,6 +11,8 @@ public class MainUI {
 	
 	TheaterUI theaterUI = new TheaterUI();
 	
+	ReservationUI reservationUI = new ReservationUI();
+	
 	public void service() {
 		System.out.println("영화예매 프로그램");
 		while (true) {
@@ -25,7 +27,7 @@ public class MainUI {
 			
 			case 3 : new InningUI().showInningList();
 			
-			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater();  break;
+			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.selectReservList(userUI.vo.getUserNo());  break;
 			case 0: quit();
 
 			default:

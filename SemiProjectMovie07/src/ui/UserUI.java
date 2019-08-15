@@ -41,25 +41,22 @@ public class UserUI {
 	
 	
 	
-	/*
+	
 	public void findUser() {
 		
-		List<UserVO> list = dao.selectUser();
+		List<UserVO> list = dao.selectAdminList();
 		System.out.println("비밀번호 찾기 메뉴를 선택하셨습니다.\n\n\n");
 		
 		
-		String findStr = CommUtil.getStr("비밀번호를 찾을 아이디를 입력해주세요.");
+		String findId = CommUtil.getStr("비밀번호를 찾을 아이디를 입력해주세요.");
+		String findEmail = CommUtil.getStr("이메일 주소를 입력해주세요.");
 		for (UserVO vo : list) {
-//			if (!vo.getId().equals(findStr)) continue;
+			if (!vo.getUserId().equals(findId) && !vo.getUserEmail().equals(findEmail)) continue;
 			
-			String findHint = CommUtil.getStr("비밀번호 힌트를 입력해주세요.");
-			
-//			if	(!vo.getPasshint().equals(findHint)) continue;
 			
 			System.out.println("∴비밀번호 찾기에 성공하셨습니다.∴");
 			System.out.println("--------------------");
-//			System.out.println("아이디 : " + vo.getId());
-//			System.out.println("비밀번호 : " + vo.getPasswd());
+			System.out.println("비밀번호 : " + vo.getPassword() + "입니다.");
 			System.out.println("--------------------");
 			System.out.println("메인메뉴로 돌아갑니다");
 			return;
@@ -69,7 +66,7 @@ public class UserUI {
 		System.out.println("비밀번호 찾기에 실패하셨습니다.");
 	
 	}
-	*/
+	
 	
 	
 	
@@ -199,17 +196,7 @@ public class UserUI {
 		System.out.println("============================");
 	}
 	
-	
-	
-	
-//	private void loginUser() {
-//		userVO = user.loginUser();
-//		if (userVO != null) {
-//			System.out.println("환영합니다. " + userVO.getUserId() + "님\n" + CommUtil.getDate() + "에 로그인 하셨습니다.");
-//			loginChk = true;
-//		}
-//	}
-	
+
 	
 	public void logout() {
 		System.out.println("현재 시간 : " + CommUtil.getDate());
@@ -220,20 +207,5 @@ public class UserUI {
 	}
 	
 	
-	/**
-	 * 
-	 *  유저정보 관련 처리 메소드
-	 */
-	
-	
-	public void joinUser() {
-//		userVO.join();
-	}
-	
-	
-	
-	public void chkAdmin() {
-		
-	}
 	
 }

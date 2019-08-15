@@ -66,11 +66,27 @@ public class CommUtil {
 	
 	
 	
+	/**
+	 * 
+	 *  좌석 열을 입력받아 문자로 반환해준다.
+	 * 
+	 * @param reservCol
+	 * @return
+	 */
+	public static char getReservCol(int reservCol) {
+		return (char)('A' + reservCol);
+	}
 	
-	
-	
-
-	
+	/**
+	 * 
+	 *  좌석 행을 입력받아 좌석자리를 반환해준다.
+	 * 
+	 * @param reservRow
+	 * @return
+	 */
+	public static int getReservRow(int reservRow) {
+		return reservRow + 1;
+	}
 	
 	
 

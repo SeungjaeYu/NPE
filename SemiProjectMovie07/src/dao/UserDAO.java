@@ -155,21 +155,6 @@ public class UserDAO {
 		return result;
 		
 	}
-	/*
-	public List<UserVO> selectUser() {
-		List<UserVO> list = new ArrayList<>();
-		List<String> list2 = fileRead(path);
-	
-		if (list2 != null) {
-			for (String str : list2) {
-				String[] arr = str.split("@@");
-//				list.add(new UserVO(Integer.parseInt(arr[0]),
-//						arr[1], arr[2], arr[3], arr[4], arr[5], Integer.parseInt(arr[6])));
-			}
-		}
-		
-		return list;
-	}
-	*/
+
 
 }
