@@ -46,9 +46,8 @@ public class MainUI {
 			System.out.println("--------------------------------");
 			System.out.println("1. 로그아웃");
 			System.out.println("2. 회원정보");
-			System.out.println("3. 영화조회");
-			System.out.println("4. 영화등록");
-			System.out.println("5. 영화삭제");
+			System.out.println("3. 영화관리");
+			System.out.println("4. 상영관관리");
 			System.out.println("0. 종료");
 			System.out.println("--------------------------------");
 		} else { 
