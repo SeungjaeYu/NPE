@@ -55,13 +55,4 @@ public class MovieUI {
 		}
 	return 0;
 	}
-		
-//	public static void main(String[] args) {
-//		
-//		MovieUI m = new MovieUI();
-//		
-//		System.out.println(m.showMovieList());
-//		
-//		System.out.println("outer out");
-//	}
 }

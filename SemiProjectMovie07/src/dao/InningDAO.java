@@ -57,5 +57,4 @@ public class InningDAO {
 		}
 		return list;
 	}
-
 }
