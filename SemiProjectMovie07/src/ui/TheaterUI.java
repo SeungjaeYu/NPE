@@ -35,7 +35,7 @@ public class TheaterUI {
 	}
 
 	/**
-	 * 상영관 수정 및 삭제
+	 * 상영관 수정 및 삭제 메뉴
 	 */
 	int modiMenu() {
 		System.out.println("-----------------");
@@ -43,12 +43,10 @@ public class TheaterUI {
 		System.out.println("2. 상영관 삭제");
 		System.out.println("0. 이전");
 		System.out.println("-----------------");
-		return Integer.parseInt(sc.nextLine());
+		return CommUtil.getInt("원하시는 서비스 번호를 입력해주세요 : ");
 	}
-
 	public void modifyTheater() {
-
-		while (true) {
+		outer: while (true) {
 			List<TheaterVO> list = dao.selectTheaterList();
 			for (TheaterVO vo : list) {
 				System.out.printf("%s\t %d행\t %d열\n", vo.getTheaterName(), vo.getSeatRow(), vo.getSeatCol());
@@ -60,17 +58,18 @@ public class TheaterUI {
 			case 2:
 				deleteTheater();
 				break;
-			case 0: exit(); break;
+			case 0:
+				break outer;
 			default:
 				System.out.println("잘못된 메뉴번호 입니다.");
 				System.out.println("다시 선택해 주세요.");
-
 			}
-
 		}
-
 	}
 
+	/**
+	 * 상영관 수정
+	 */
 	public void modiTheater() {
 		System.out.print("수정할 상영관이름을 입력하세요 : ");
 		String originalName = sc.nextLine();
@@ -103,7 +102,7 @@ public class TheaterUI {
 		String theaterName = CommUtil.getStr("삭제할 상영관이름을 입력하세요 : ");
 
 		int result = dao.deleteTheater(theaterName);
-		//System.out.println("result : " + result);
+		// System.out.println("result : " + result);
 		if (result == 1) {
 			System.out.println();
 			System.out.println("상영관 삭제가 완료되었습니다.");
@@ -116,21 +115,21 @@ public class TheaterUI {
 
 	}
 
+	/**
+	 * 상영관 관리
+	 * @return
+	 */
 	int menu() {
 		System.out.println("-----------------");
 		System.out.println("1. 상영관 등록");
 		System.out.println("2. 상영관 수정 및 삭제");
 		System.out.println("0. 이전");
 		System.out.println("-----------------");
-		return Integer.parseInt(sc.nextLine());
+		return CommUtil.getInt("원하시는 서비스 번호를 입력해주세요 : ");
 	}
 
-	void exit() {
-		System.exit(0);
-	}
-
-	void theater() {
-		while (true) {
+	public void theater() {
+		outer2: while (true) {
 			switch (menu()) {
 			case 1:
 				registerTheater();
@@ -139,17 +138,16 @@ public class TheaterUI {
 				modifyTheater();
 				break;
 			case 0:
-				exit();
-				break;
+				// back();
+				break outer2;
 			default:
 				System.out.println("잘못된 메뉴번호 입니다.");
 				System.out.println("다시 선택해 주세요.");
 			}
 		}
 	}
-
-	public static void main(String[] args) {
-		new TheaterUI().theater();
-	}
+	/* 기능 테스트 메인
+	 * public static void main(String[] args) { new TheaterUI().theater(); }
+	 */
 
 }
