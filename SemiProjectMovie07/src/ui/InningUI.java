@@ -29,4 +29,4 @@ public class InningUI {
 		System.out.println("------------------------------");
 		return CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
 	}
-} 
+}
