@@ -1,30 +1,39 @@
 package vo;
 
 public class ReservationVO {
+	
+	private int tempNo;
 	private int reservNo;
 	private int inningNo;
 	private int userNo;
 	private String movieTitle;
 	private String movieTime;
 	private String theaterName;
-	private int reserv_row;
-	private int reserv_col;
-	
+	private int reservRow;
+	private int reservCol;
 	public ReservationVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReservationVO(int reservNo, int inningNo, int userNo, String movieTitle, String movieTime,
-			String theaterName, int reserv_row, int reserv_col) {
+	public ReservationVO(int tempNo, int reservNo, int inningNo, int userNo, String movieTitle, String movieTime,
+			String theaterName, int reservRow, int reservCol) {
 		super();
+		this.tempNo = tempNo;
 		this.reservNo = reservNo;
 		this.inningNo = inningNo;
 		this.userNo = userNo;
 		this.movieTitle = movieTitle;
 		this.movieTime = movieTime;
 		this.theaterName = theaterName;
-		this.reserv_row = reserv_row;
-		this.reserv_col = reserv_col;
+		this.reservRow = reservRow;
+		this.reservCol = reservCol;
+	}
+	
+	public int getTempNo() {
+		return tempNo;
+	}
+	public void setTempNo(int tempNo) {
+		this.tempNo = tempNo;
 	}
 	public int getReservNo() {
 		return reservNo;
@@ -62,24 +71,28 @@ public class ReservationVO {
 	public void setTheaterName(String theaterName) {
 		this.theaterName = theaterName;
 	}
-	public int getReserv_row() {
-		return reserv_row;
+	public int getReservRow() {
+		return reservRow;
 	}
-	public void setReserv_row(int reserv_row) {
-		this.reserv_row = reserv_row;
+	public void setReservRow(int reservRow) {
+		this.reservRow = reservRow;
 	}
-	public int getReserv_col() {
-		return reserv_col;
+	public int getReservCol() {
+		return reservCol;
 	}
-	public void setReserv_col(int reserv_col) {
-		this.reserv_col = reserv_col;
+	public void setReservCol(int reservCol) {
+		this.reservCol = reservCol;
 	}
-	
 	@Override
 	public String toString() {
-		return "ReservationVO [reservNo=" + reservNo + ", inningNo=" + inningNo + ", userNo=" + userNo + ", movieTitle="
-				+ movieTitle + ", movieTime=" + movieTime + ", theaterName=" + theaterName + ", reserv_row="
-				+ reserv_row + ", reserv_col=" + reserv_col + "]";
+		return "ReservationVO [tempNo=" + tempNo + ", reservNo=" + reservNo + ", inningNo=" + inningNo + ", userNo="
+				+ userNo + ", movieTitle=" + movieTitle + ", movieTime=" + movieTime + ", theaterName=" + theaterName
+				+ ", reservRow=" + reservRow + ", reservCol=" + reservCol + "]";
 	}
+	
+	
+	
+	
+	
 	
 }

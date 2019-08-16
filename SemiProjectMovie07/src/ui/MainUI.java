@@ -27,7 +27,7 @@ public class MainUI {
 			
 			case 3 : new InningUI().showInningList();
 			
-			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.selectReservList(userUI.vo.getUserNo());  break;
+			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.service(userUI.vo.getUserNo());  break;
 			case 0: quit();
 
 			default:
