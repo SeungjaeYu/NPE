@@ -113,4 +113,40 @@ public class ReservationDAO {
 		} 
 		return result;
 	}
+	
+	
+	public int countRserv(int inningNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ConnectionPool.getConnection();
+			StringBuffer sql = new StringBuffer();
+			
+			
+			sql.append(" select count(*) as reserv_cnt from tb_reservation ");
+			sql.append("  where inning_no = ? ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			
+			
+			pstmt.setInt(1, inningNo);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("reserv_cnt");
+			}
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionFactory.close(pstmt);
+			ConnectionPool.relaseConnection(con);
+		}
+		
+		
+		
+		return 0;
+	}
 }

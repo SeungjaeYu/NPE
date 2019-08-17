@@ -25,7 +25,7 @@ public class MainUI {
 			
 			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
 			
-			case 3 : new InningUI().showInningList();
+			case 3 : new InningUI2().showInningList();
 			
 			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.service(userUI.vo.getUserNo());  break;
 			case 0: quit();

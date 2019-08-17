@@ -68,26 +68,47 @@ public class CommUtil {
 	
 	/**
 	 * 
-	 *  좌석 열을 입력받아 문자로 반환해준다.
+	 *  좌석 행을 입력받아 문자로 반환해준다.
 	 * 
 	 * @param reservCol
 	 * @return
 	 */
-	public static char getReservCol(int reservCol) {
-		return (char)('A' + reservCol);
+	public static char getReservRow(int reservRow) {
+		return (char)('A' + reservRow);
 	}
 	
 	/**
 	 * 
-	 *  좌석 행을 입력받아 좌석자리를 반환해준다.
+	 *  좌석 열을 입력받아 좌석자리를 반환해준다.
 	 * 
 	 * @param reservRow
 	 * @return
 	 */
-	public static int getReservRow(int reservRow) {
-		return reservRow + 1;
+	public static int getReservCol(int reservCol) {
+		return reservCol + 1;
 	}
 	
+	/**
+	 *  좌석 행을 입력받아 숫자로 반환해준다.
+	 * @param reservCol
+	 * @return
+	 */
+	public static int parseReservRow(char reservRow) throws ArithmeticException {
+		char parseReservRow = Character.toUpperCase(reservRow);
+		if (parseReservRow < 'A' || parseReservRow > 'Z') {
+			throw new ArithmeticException("좌석 열의 값은 A~Z까지로 한정되어있습니다.");
+		}
+		return (char) ('A' - parseReservRow);
+	}
+	
+	/**
+	 *  좌석 열을 입력받아 숫자로 반환해준다.
+	 * @param reservRow
+	 * @return
+	 */
+	public static int parseReservCol(int reservCol) {
+		return reservCol - 1;
+	}
 	
 
 }
