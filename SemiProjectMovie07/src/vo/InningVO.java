@@ -1,6 +1,7 @@
 package vo;
 
-public class InningVO extends TheaterVO{
+public class InningVO extends TheaterVO {
+	private int tempNo;
 	private int inningNo;
 	private int movieNo;
 	private int movieInning;
@@ -10,13 +11,24 @@ public class InningVO extends TheaterVO{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public InningVO(int inningNo, int movieNo, int movieInning, String movieTime, int theaterNo) {
+	public InningVO(int theaterNo, String theaterName, int seatRow, int seatCol) {
+		super(theaterNo, theaterName, seatRow, seatCol);
+		// TODO Auto-generated constructor stub
+	}
+	public InningVO(int tempNo, int inningNo, int movieNo, int movieInning, String movieTime, int theaterNo) {
 		super();
+		this.tempNo = tempNo;
 		this.inningNo = inningNo;
 		this.movieNo = movieNo;
 		this.movieInning = movieInning;
 		this.movieTime = movieTime;
 		this.theaterNo = theaterNo;
+	}
+	public int getTempNo() {
+		return tempNo;
+	}
+	public void setTempNo(int tempNo) {
+		this.tempNo = tempNo;
 	}
 	public int getInningNo() {
 		return inningNo;
@@ -50,9 +62,10 @@ public class InningVO extends TheaterVO{
 	}
 	@Override
 	public String toString() {
-		return "InningVO [inningNo=" + inningNo + ", movieNo=" + movieNo + ", movieInning=" + movieInning
-				+ ", movieTime=" + movieTime + ", theaterNo=" + theaterNo + "]";
+		return "InningVO [tempNo=" + tempNo + ", inningNo=" + inningNo + ", movieNo=" + movieNo + ", movieInning="
+				+ movieInning + ", movieTime=" + movieTime + ", theaterNo=" + theaterNo + "]";
 	}
+	
 	
 	
 }

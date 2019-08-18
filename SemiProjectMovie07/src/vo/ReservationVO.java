@@ -1,6 +1,6 @@
 package vo;
 
-public class ReservationVO {
+public class ReservationVO extends ReservSeatVO {
 	
 	private int tempNo;
 	private int reservNo;

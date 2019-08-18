@@ -16,7 +16,7 @@ public class InningUI2 {
 	public int showInningList() {
 		List<InningVO> list = InningDAO2.selectInning(m.showMovieList());
 		
-		int no = list.size();
+		int no = 1;
 		System.out.println("------------------------------");
 		System.out.println("상영시간\t잔여  좌석수\t상영관");
 		System.out.println("------------------------------");
@@ -25,7 +25,7 @@ public class InningUI2 {
 			int reservSize = reservationDAO.countRserv(inning.getInningNo());
 			System.out.printf(
 					"%-3d. %5s%10s%10s",
-					no--,
+					no++,
 					inning.getMovieTime(),
 					(totSeatSize - reservSize) + "석",
 					inning.getTheaterName()
@@ -33,6 +33,11 @@ public class InningUI2 {
 			System.out.println();
 		}
 		System.out.println("------------------------------");
-		return CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
+		int inningNo =  CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
+		for (InningVO inning : list) {
+			if (inning.getTempNo() != inningNo) continue;
+			return inning.getInningNo();
+		}
+		return 0;
 	}
 }
