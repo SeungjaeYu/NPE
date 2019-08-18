@@ -84,9 +84,11 @@ public class ReservationUI {
 		int reservRemove = CommUtil.getInt("취소할 예매 번호를 입력하세요 : ");
 		List<ReservationVO> reservList = dao.reservList(userNo);
 		int realReservNo = 0;
+		ReservationVO vo = null;
 		for (ReservationVO reservVO : reservList) {
 			if (reservRemove != reservVO.getTempNo()) continue;
 			realReservNo = reservVO.getReservNo();
+			vo = reservVO;
 		}
 		
 		if (realReservNo == 0) {
@@ -98,7 +100,11 @@ public class ReservationUI {
 		if (chkDel.equalsIgnoreCase("Y")) {
 			int reservDel = dao.deleteReserv(realReservNo, userNo);
 			if (reservDel == 3) {
-				System.out.println("성공적으로 예매가 취소되었습니다.");
+				System.out.printf("선택하신 \'%s시 %s분 %s 좌석:%s\'이 취소되었습니다.\n"
+						, vo.getMovieTime().substring(0, vo.getMovieTime().indexOf(":"))
+						, vo.getMovieTime().substring(vo.getMovieTime().indexOf(":") + 1, vo.getMovieTime().length())
+						, vo.getMovieTitle()
+						, CommUtil.getReservRow(vo.getReservRow()) + "" + CommUtil.getReservCol(vo.getReservCol()));
 				System.out.println("============================");
 				 return;
 			}

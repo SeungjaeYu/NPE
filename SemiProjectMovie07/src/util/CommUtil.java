@@ -50,8 +50,15 @@ public class CommUtil {
 	 * @return
 	 */
 	public static String getStr(String msg) {
-		System.out.print(msg);
-		return sc.nextLine();
+		while (true) {
+			try {
+				System.out.print(msg);
+				return sc.nextLine();
+			} catch (Exception e) {
+				System.out.println("잘못된 값을 입력하셨습니다. 제대로 된 문자를 넣어주세요");
+			}
+			
+		}
 	}
 	/**
 	 * 
@@ -61,7 +68,15 @@ public class CommUtil {
 	 * @return
 	 */
 	public static int getInt(String msg) {
-		return Integer.parseInt(getStr(msg));
+		while (true) {
+			try {
+				System.out.print(msg);
+				return Integer.parseInt(sc.nextLine());
+			} catch (Exception e) {
+				System.out.println("잘못된 값을 입력하셨습니다. 제대로 된 숫자를 넣어주세요");
+			}
+			
+		}
 	}
 	
 
@@ -92,8 +107,11 @@ public class CommUtil {
 	 * @param reservCol
 	 * @return
 	 */
-	public static int parseReservRow(char reservRow) throws ArithmeticException {
-		char parseReservRow = Character.toUpperCase(reservRow);
+	public static int parseReservRow(String reservRow) throws ArithmeticException {
+		if (reservRow.length() > 1) {
+			throw new ArithmeticException("좌석 열의 값은 A~Z까지로 한정되어있습니다.");
+		}
+		char parseReservRow = Character.toUpperCase(reservRow.charAt(0));
 		if (parseReservRow < 'A' || parseReservRow > 'Z') {
 			throw new ArithmeticException("좌석 열의 값은 A~Z까지로 한정되어있습니다.");
 		}

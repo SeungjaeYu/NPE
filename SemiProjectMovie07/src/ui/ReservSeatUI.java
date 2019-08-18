@@ -16,6 +16,12 @@ public class ReservSeatUI {
 	
 	ReservationDAO reservDAO = new ReservationDAO();
 	
+	/**
+	 * 회차별 상영관 예매 좌석 보기 및 예매 등록
+	 * 
+	 * @param userNo
+	 */
+	
 	public void reservSeatList(int userNo) {
 		
 		int inningNo = inningUI.showInningList();
@@ -25,10 +31,15 @@ public class ReservSeatUI {
 		// 전체 자리수 가져오기
 		InningVO seatTotSize = inningDAO.selectOneInning(inningNo);
 		int[][] seatMovie = new int[seatTotSize.getSeatRow()][seatTotSize.getSeatCol()];
-		List<ReservationVO> list = reservSeatDAO.reservSeatList(inningNo);	// 회차 당 영화 예매된 자리 조회
+		
+		// 회차 당 영화 예매된 자리 조회
+		List<ReservationVO> list = reservSeatDAO.reservSeatList(inningNo);	
 		for (ReservationVO reservVO : list) {
 			seatMovie[reservVO.getReservRow()][reservVO.getReservCol()] = 1;
 		}
+		
+		
+		// 열의 크기만큼 idx++
 		System.out.println("--------------------------------");
 		System.out.print("좌석" + "\t");
 		for (int i = 1; i <= seatTotSize.getSeatCol(); i++) {
@@ -36,6 +47,9 @@ public class ReservSeatUI {
 		}
 		System.out.println();
 		System.out.println("--------------------------------");
+		
+		
+		// 각 회차별 상영관 예매된 좌석이 있다면 X, 없다면 O
 		for (int i = 0; i < seatMovie.length; i++) {
 			System.out.print(CommUtil.getReservRow(i) + "    |\t");
 			for (int j = 0; j < seatMovie[i].length; j++) {
@@ -43,6 +57,9 @@ public class ReservSeatUI {
 			}
 			System.out.println();
 		}
+		
+		
+		
 		System.out.println("-------------------------------");
 		System.out.println("1. 예매하기");
 		System.out.println("0. 이전메뉴");
@@ -52,16 +69,29 @@ public class ReservSeatUI {
 		if (chkReserv == 1) {
 			
 			String ioReservRow = CommUtil.getStr("에매할 좌석의 행을 입력하세요 : ");
-			int iocharReservRow = CommUtil.parseReservRow(ioReservRow.charAt(0));
+			int iocharReservRow = 0;
+			
+			// 행을 입력할 때 A~Z 이외의 값이 나오면 예외 발생
+			try {
+				iocharReservRow = CommUtil.parseReservRow(ioReservRow);
+			} catch (ArithmeticException e) {
+				System.out.println(e.getMessage());
+				return;
+			}
+			
+			
 			int ioReservCol = CommUtil.parseReservCol(CommUtil.getInt(("에매할 좌석의 열을 입력하세요 : ")));
 			
-			if (iocharReservRow + 1 > seatTotSize.getSeatRow() || ioReservCol + 1 > seatTotSize.getSeatCol()) {
+			
+			// 상영관 사이즈보다 크거나 작은 값 입력한 경우
+			if (iocharReservRow + 1 > seatTotSize.getSeatRow() || ioReservCol + 1 > seatTotSize.getSeatCol() ||
+					iocharReservRow < 0 || ioReservCol < 0) {
 				System.out.println("상영관에 없는 좌석 번호를 입력하셨습니다.");
 				return;
 			}
 			
 			
-			
+			// 이미 예매된 좌석 일 경우
 			if (seatMovie[iocharReservRow][ioReservCol] == 1) {
 				System.out.printf("선택하신 %s%d좌석은 예매된 좌석입니다.\n ", CommUtil.getReservRow(iocharReservRow), CommUtil.getReservCol(ioReservCol));
 				return;
