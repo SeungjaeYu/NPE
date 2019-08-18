@@ -51,7 +51,8 @@ public class ReservationUI {
 			List<ReservationVO> reservList = dao.reservList(userNo);
 			System.out.println("예매 정보");
 			System.out.println("----------------------------------------");
-			System.out.println("번호\t\t영화제목\t상영시간\t상영관\t\t좌석");
+			System.out.printf("%2s%20s%16s%8s%8s\n"
+					,"번호", "영화제목", "상영시간", "상영관", "좌석");
 			System.out.println("----------------------------------------");
 			int reservCnt = reservList.size();
 			
@@ -60,11 +61,9 @@ public class ReservationUI {
 				
 			} else {
 				for (ReservationVO reservVO : reservList) {
-					System.out.print(reservCnt-- + "\t\t");
-					System.out.print(reservVO.getMovieTitle() + "\t\t");
-					System.out.print(reservVO.getMovieTime() + "\t\t");
-					System.out.print(reservVO.getTheaterName( )+ "\t\t");
-					System.out.println(CommUtil.getReservCol(reservVO.getReservCol()) + "" + CommUtil.getReservRow(reservVO.getReservRow()));
+					System.out.printf("%2s%20s%16s%8s%8s\n", reservCnt--, reservVO.getMovieTitle(),
+							reservVO.getMovieTime(), reservVO.getTheaterName(),
+							CommUtil.getReservRow(reservVO.getReservRow()) + "" + CommUtil.getReservCol(reservVO.getReservCol()));
 					
 				}
 				

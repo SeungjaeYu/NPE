@@ -64,8 +64,7 @@ public class CommUtil {
 		return Integer.parseInt(getStr(msg));
 	}
 	
-	
-	
+
 	/**
 	 * 
 	 *  좌석 행을 입력받아 문자로 반환해준다.
@@ -98,7 +97,7 @@ public class CommUtil {
 		if (parseReservRow < 'A' || parseReservRow > 'Z') {
 			throw new ArithmeticException("좌석 열의 값은 A~Z까지로 한정되어있습니다.");
 		}
-		return (char) ('A' - parseReservRow);
+		return (char) (parseReservRow - 'A');
 	}
 	
 	/**

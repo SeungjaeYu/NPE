@@ -3,7 +3,7 @@ package ui;
 
 import util.CommUtil;
 
-public class MainUI {
+public class MainUI_SJ {
 
 
 	UserUI userUI = new UserUI();
@@ -25,7 +25,7 @@ public class MainUI {
 			
 			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
 			
-//			case 3 : new ReservSeatUI().reservSeatList(); break;
+			case 3 : new ReservSeatUI().reservSeatList(userUI.vo.getUserNo()); break;
 			
 			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.service(userUI.vo.getUserNo());  break;
 			case 0: quit();
