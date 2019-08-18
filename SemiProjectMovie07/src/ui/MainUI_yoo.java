@@ -1,6 +1,5 @@
 package ui;
 
-
 import util.CommUtil;
 
 public class MainUI_yoo {
