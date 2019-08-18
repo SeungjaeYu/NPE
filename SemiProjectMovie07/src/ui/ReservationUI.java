@@ -51,7 +51,7 @@ public class ReservationUI {
 			List<ReservationVO> reservList = dao.reservList(userNo);
 			System.out.println("예매 정보");
 			System.out.println("----------------------------------------");
-			System.out.println("번호\t\t영화제목\t\t상영시간\t\t상영관\t\t등급");
+			System.out.println("번호\t\t영화제목\t상영시간\t상영관\t\t좌석");
 			System.out.println("----------------------------------------");
 			int reservCnt = reservList.size();
 			
