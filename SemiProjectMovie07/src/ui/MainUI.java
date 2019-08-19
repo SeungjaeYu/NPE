@@ -14,7 +14,7 @@ public class MainUI {
 	ReservationUI reservationUI = new ReservationUI();
 	
 	MovieUI movieUI = new MovieUI();
-	
+	MovieUIAdmin movieUIAdmin = new MovieUIAdmin();
 	public void service() {
 		System.out.println("영화예매 프로그램");
 		while (true) {
@@ -27,7 +27,7 @@ public class MainUI {
 			
 			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
 			
-			case 3 : movieUI.selectMovieList( userUI.vo != null ? userUI.vo.getUserNo() : 0 ); break;
+			case 3 :if (userUI.loginChk && userUI.adminChk)	movieUIAdmin.movie(); else movieUI.selectMovieList( userUI.vo != null ? userUI.vo.getUserNo() : 0 ); break;
 			
 			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.service(userUI.vo.getUserNo());  break;
 			case 0: quit();

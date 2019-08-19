@@ -19,7 +19,7 @@ public class MovieDAO {
 	 * 기능 정의 : 등록된 영화 목록 조회
 	 * @return
 	 */
-	public static List<MovieVO> selectMovie() {
+	public List<MovieVO> selectMovie() {
 		List<MovieVO> list = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
