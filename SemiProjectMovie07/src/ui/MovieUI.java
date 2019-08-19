@@ -14,12 +14,15 @@ public class MovieUI {
 	// 영화 수정 U
 	
 	// 영화리스트 조회 R
-	public int showMovieList() {
+	MovieDAO movieDAO = new MovieDAO();
+	InningUI inningUI = new InningUI();
+	
+	public void selectMovieList(int userNo) {
 		
-		outer : 
+		movieOuter : 
 		while (true) {
 			
-			List<MovieVO> list = MovieDAO.selectMovie();
+			List<MovieVO> list = movieDAO.selectMovie();
 			
 			int no = list.size();
 			System.out.println("현재 상영중인 영화는 " + list.size() + "개 입니다. ");
@@ -39,21 +42,27 @@ public class MovieUI {
 			System.out.println("------------------------------");
 			System.out.println("  0. 이전");
 			System.out.println("------------------------------");
-			outer2 :
-			while(true) {
-				int userNum = CommUtil.getInt("메뉴 중 상세 조회할 글 번호나 처리할 항목을 선택하세요 : ");
-				
-				if (userNum == 0) break outer;
-				
-				if (userNum > list.size() || userNum < 0) {
-					System.out.println("잘못 된 메뉴번호 입니다. 다시입력하세요. ");
-					continue outer2;
-				}
-				MovieVO vo = list.get(list.size() - userNum);
-				return vo.getMovieNo();
+			
+			int userNum = CommUtil.getInt("메뉴 중 상세 조회할 글 번호나 처리할 항목을 선택하세요 : ");
+			
+			if (userNum == 0) break movieOuter;
+			
+			while (userNum > list.size() || userNum < 0) {
+				System.out.println("잘못 된 메뉴번호 입니다. 다시입력하세요. ");
+				userNum = CommUtil.getInt("메뉴 중 상세 조회할 글 번호나 처리할 항목을 선택하세요 : ");
 			}
+			MovieVO vo = null;
+			for (MovieVO movieVO : list) {
+				if (list.size() - userNum + 1 != movieVO.getTempNo()) continue;
+				vo = movieVO;
+			}
+			if (vo != null) {
+				inningUI.selectInningList(vo.getMovieNo(), userNo);
+				
+			}
+			
 		}
-	return 0;
+		
 	}
 }
  
