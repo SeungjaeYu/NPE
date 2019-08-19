@@ -67,6 +67,9 @@ public class ReservSeatUI {
 			if (userNo == 0) {
 				System.out.println("비회원은 조회만 가능합니다.");
 				continue reservOuter;
+			} else if (userNo == 25) {
+				System.out.println("관리자는 예매를 하실 수 없습니다.");
+				continue reservOuter;
 			}
 				String ioReservRow = CommUtil.getStr("에매할 좌석의 행을 입력하세요 : ");
 				int iocharReservRow = 0;
