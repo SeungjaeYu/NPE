@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.MovieDAO">
+	<select id="selectMemberInfo1" parameterType="string" 
+	resultType="Member" >
+		select id,
+			   name,
+			   addr,
+			   email
+		  from tb_mybatis_member
+		 where id = #{id} 	   
+	</select>
+	
+	<select id="selectMemberInfo2" parameterType="Member" 
+	 resultType="Member" >
+		select id,
+			   name,
+			   addr,
+			   email
+		  from tb_mybatis_member
+		 where id   = #{id}
+		   and name = #{name}
+	</select>
+	
+	<select id="selectMemberInfo3" parameterType="string"
+	 resultType="string">
+		select name
+		  from tb_mybatis_member
+		 where id = #{id} 
+	</select>
+	
+	<select id="selectMemberInfo4" resultType="int">
+		select count(*)
+		  from tb_mybatis_member
+	</select>
+	
+	<select id="selectMemberList1" resultType="Member">
+		select id,
+			   name,
+			   email,
+			   addr,
+			   join_date as joinDate
+		  from tb_mybatis_member
+		 order by id
+	</select>
+		
+	<select id="selectMemberList2" resultType="string">
+		select name
+		  from tb_mybatis_member
+		 order by id 
+	</select>
+	
+	<!-- SQL의 결과와 VO 를 결합  -->
+	<resultMap type="Member" id="memberMap">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="addr" property="addr" />
+		<result column="email" property="email" />
+		<result column="join_date" property="joinDate" />
+	</resultMap>	
+		
+	<select id="selectMemberList3" resultMap="memberMap">
+		select *
+		  from tb_mybatis_member
+		 order by id 
+	</select>
+	
+	<!-- resultType은 무조건 int이므로 따로 명시해 주지 않아도 자동 int로 반환한다. -->
+	<insert id="insertMember" parameterType="Member">
+		insert into tb_mybatis_member(
+			id, name, email, addr
+		)values (
+		#{id}, #{name}, #{email}, #{addr}
+		)
+	</insert>
+	
+	<update id="updateMember" parameterType="Member">
+		update tb_mybatis_member
+		   set  addr = #{addr},
+		       email = #{email}
+		 where    id = #{id}  
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		delete 
+		  from tb_mybatis_member
+		 where id = #{id}  
+	</delete>
+	
+</mapper>		

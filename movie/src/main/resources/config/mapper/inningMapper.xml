@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.InningDAO">
+	<resultMap type="" id="InningMap">
+		<result column="inning_no" property="inningNo"/>
+		<result column="movie_time" property="movieTime"/>
+		<result column="theater_name" property="theaterName"/>
+		<result column="seat_col" property="seatCol"/>
+		<result column="seat_row" property="seatRow"/>
+	</resultMap>
+	
+	
+	<select id="selectInning" parameterType="int" 
+	resultMap="InningMap" >
+		select i.inning_no,
+			   i.movie_time,
+			   th.theater_name,
+			   th.seat_col,
+			   th.seat_row
+		  from tb_inning i, tb_theater th
+		 where i.theater_no = th.theater_no and movie_no = #{movieNo}
+		 order by i.movie_inning	   
+	</select>
+	
+	<select id="selectOneInning" parameterType="int" 
+	 resultMap="InningMap" >
+		select i.inning_no,
+			   i.movie_time,
+			   th.theater_name,
+			   th.seat_col,
+			   th.seat_row
+		  from tb_inning i, tb_theater th
+		 where i.theater_no = th.theater_no and inning_no = #{inningNo}
+	</select>
+	
+
+	
+</mapper>		
