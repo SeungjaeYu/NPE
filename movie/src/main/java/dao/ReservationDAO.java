@@ -12,7 +12,7 @@ import util.ConnectionPool;
 import util.SqlExecutor;
 import vo.ReservationVO;
 
-public class ReservationDAO {
+public interface ReservationDAO {
 
 	/**
 	 *  유저 당 예매 전체 조회
@@ -20,70 +20,7 @@ public class ReservationDAO {
 	 * @return List<UserVO>
 	 */
 	
-	public List<ReservationVO> reservList(int userNo) {
-		List<ReservationVO> reservList = new ArrayList<>();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try {
-			con = ConnectionPool.getConnection();
-			StringBuffer sql = new StringBuffer();
-			
-			
-			sql.append("select u.user_no, r.reserv_no, m.movie_title, i.movie_time, t.theater_name, s.reserv_col, s.reserv_row ");
-			sql.append("  from tb_reserv_seat s ");
-			sql.append("  inner join tb_reservation r ");
-			sql.append("  on s.reserv_no = r.reserv_no ");
-			sql.append("  inner join tb_inning i ");
-			sql.append("  on r.inning_no = i.inning_no ");
-			sql.append("  inner join tb_movie m ");
-			sql.append("  on m.movie_no = i.movie_no ");
-			sql.append("  inner join tb_theater t ");
-			sql.append("  on i.theater_no = t.theater_no ");
-			sql.append("  inner join tb_user u ");
-			sql.append("  on r.user_no = u.user_no ");
-			sql.append("  where r.user_no = ? ");
-			
-			
-			sql.append(" order by r.reserv_no desc ");
-			
-			pstmt = con.prepareStatement(sql.toString());
-			
-			
-			pstmt.setInt(1, userNo);
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			
-			while (rs.next()) {
-				ReservationVO reservVO = new ReservationVO();
-				
-				reservVO.setUserNo(rs.getInt("user_no"));
-				reservVO.setReservNo(rs.getInt("reserv_no"));
-				reservVO.setMovieTitle(rs.getString("movie_title"));
-				reservVO.setMovieTime(rs.getString("movie_time"));
-				reservVO.setTheaterName(rs.getString("theater_name"));
-				reservVO.setReservCol(rs.getInt("reserv_col"));
-				reservVO.setReservRow(rs.getInt("reserv_row"));
-				
-				
-				reservList.add(reservVO);
-			}
-			
-
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			ConnectionFactory.close(pstmt);
-			ConnectionPool.relaseConnection(con);
-		}
-		
-		
-		
-		return reservList;
-		
-	}
-	
+	public List<ReservationVO> reservList(int userNo);	
 	
 	/**
 	 * 
@@ -96,7 +33,10 @@ public class ReservationDAO {
 	 * @return
 	 */
 	
-	public int insertReserv(int inningNo, int userNo, int reservRow, int reservCol) {
+	public int insertReserv(ReservationVO reservationVO); 
+	
+	/*
+	{	insertReserv(int inningNo, int userNo, int reservRow, int reservCol) 
 		
 		String[] reservDel = new String[3];
 		
@@ -106,6 +46,8 @@ public class ReservationDAO {
 		
 		String seq = "select tb_reservation_seq.nextval as reserv_seq from dual "; // 시퀀스의 값을 이용하여 예매좌석 테이블에도 넣어야 하므로 미리 가져온다.
 		
+		
+		// check = selectKey 활용하여 넘기기
 		reservDel[0] = " insert into tb_reservation (reserv_no, inning_no, user_no) values (?, ?, ?) ";
 		reservDel[1] = " insert into tb_reserv_seat (reserv_no, reserv_row, reserv_col) values (?, ?, ?) ";
 		reservDel[2] = " update tb_user set reserv_cnt = reserv_cnt + 1 where user_no = ? ";
@@ -167,7 +109,7 @@ public class ReservationDAO {
 
 		return 0;
 	}
-	
+	*/
 	
 	
 	/**
@@ -176,7 +118,11 @@ public class ReservationDAO {
 	 * @param reservNo
 	 * @return
 	 */
-	public int deleteReserv(int reservNo, int userNo) {
+	public int deleteReserv(int reservNo);
+	
+	
+	/*
+	{	deleteReserv(int reservNo, int userNo);
 		
 		int result = 0;
 		String[] reservDel = new String[3];
@@ -233,7 +179,7 @@ public class ReservationDAO {
 		
 		return 0;
 	}
-	
+	*/
 	
 	
 	

@@ -2,7 +2,6 @@ package vo;
 
 public class MovieVO {
 	
-	private int tempNo;
 	private int movieNo;
 	private String movieTitle;
 	private String movieDirector;
@@ -12,21 +11,13 @@ public class MovieVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MovieVO(int tempNo, int movieNo, String movieTitle, String movieDirector, String movieActor,
-			String viewingGrade) {
+	public MovieVO(int movieNo, String movieTitle, String movieDirector, String movieActor, String viewingGrade) {
 		super();
-		this.tempNo = tempNo;
 		this.movieNo = movieNo;
 		this.movieTitle = movieTitle;
 		this.movieDirector = movieDirector;
 		this.movieActor = movieActor;
 		this.viewingGrade = viewingGrade;
-	}
-	public int getTempNo() {
-		return tempNo;
-	}
-	public void setTempNo(int tempNo) {
-		this.tempNo = tempNo;
 	}
 	public int getMovieNo() {
 		return movieNo;
@@ -60,8 +51,8 @@ public class MovieVO {
 	}
 	@Override
 	public String toString() {
-		return "MovieVO [tempNo=" + tempNo + ", movieNo=" + movieNo + ", movieTitle=" + movieTitle + ", movieDirector="
-				+ movieDirector + ", movieActor=" + movieActor + ", viewingGrade=" + viewingGrade + "]";
+		return "MovieVO [movieNo=" + movieNo + ", movieTitle=" + movieTitle + ", movieDirector=" + movieDirector
+				+ ", movieActor=" + movieActor + ", viewingGrade=" + viewingGrade + "]";
 	}
 	
 	

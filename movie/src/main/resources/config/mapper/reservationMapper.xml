@@ -2,90 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ReservationDAO">
-	<select id="selectMemberInfo1" parameterType="string" 
-	resultType="Member" >
-		select id,
-			   name,
-			   addr,
-			   email
-		  from tb_mybatis_member
-		 where id = #{id} 	   
+
+	<resultMap type="ReservationVO" id="reservMap">
+		<result column="user_no" property="userNo" />
+		<result column="reserv_no" property="reservNo" />
+		<result column="movie_title" property="movieTitle" />
+		<result column="movie_time" property="movieTime" />
+		<result column="theater_name" property="theaterName" />
+		<result column="reserv_col" property="reservCol" />
+		<result column="reserv_row" property="reservRow" />
+	</resultMap>
+
+	<select id="reservList" parameterType="int" 
+	resultMap="reservMap" >
+		select u.user_no,
+		       r.reserv_no,
+		       m.movie_title,
+		       i.movie_time,
+		       t.theater_name,
+		       s.reserv_col,
+		       s.reserv_row
+		  from tb_reserv_seat s
+		 inner join tb_reservation r
+		 	on s.reserv_no = r.reserv_no
+		 inner join tb_inning i
+		 	on r.inning_no = i.inning_no
+		 inner join tb_movie m
+		 	on m.movie_no = i.movie_no
+		 inner join tb_theater t
+		 	on i.theater_no = t.theater_no
+		 inner join tb_user u
+		 	on r.user_no = u.user_no
+		 where r.user_no = #{userNo}
+		 
+		 order by r.reserv_no desc	
+		       
 	</select>
 	
-	<select id="selectMemberInfo2" parameterType="Member" 
-	 resultType="Member" >
-		select id,
-			   name,
-			   addr,
-			   email
-		  from tb_mybatis_member
-		 where id   = #{id}
-		   and name = #{name}
-	</select>
 	
-	<select id="selectMemberInfo3" parameterType="string"
-	 resultType="string">
-		select name
-		  from tb_mybatis_member
-		 where id = #{id} 
-	</select>
-	
-	<select id="selectMemberInfo4" resultType="int">
-		select count(*)
-		  from tb_mybatis_member
-	</select>
-	
-	<select id="selectMemberList1" resultType="Member">
-		select id,
-			   name,
-			   email,
-			   addr,
-			   join_date as joinDate
-		  from tb_mybatis_member
-		 order by id
-	</select>
-		
-	<select id="selectMemberList2" resultType="string">
-		select name
-		  from tb_mybatis_member
-		 order by id 
-	</select>
-	
-	<!-- SQL의 결과와 VO 를 결합  -->
-	<resultMap type="Member" id="memberMap">
-		<result column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="addr" property="addr" />
-		<result column="email" property="email" />
-		<result column="join_date" property="joinDate" />
-	</resultMap>	
-		
-	<select id="selectMemberList3" resultMap="memberMap">
-		select *
-		  from tb_mybatis_member
-		 order by id 
-	</select>
-	
-	<!-- resultType은 무조건 int이므로 따로 명시해 주지 않아도 자동 int로 반환한다. -->
-	<insert id="insertMember" parameterType="Member">
-		insert into tb_mybatis_member(
-			id, name, email, addr
-		)values (
-		#{id}, #{name}, #{email}, #{addr}
+	<!-- 트랜잭션 해야 하는 쿼리 -->
+	<insert id="insertReserv" parameterType="ReservationVO" >
+		<selectKey keyProperty="reservNo" resultType="int" order="BEFORE">
+			select tb_reservation_seq.nextval from dual
+		</selectKey>
+		insert into tb_reservation (
+			reserv_no, inning_no, user_no
+		) values (
+			#{reservNo}, #{inningNo}, #{userNo}
 		)
 	</insert>
 	
-	<update id="updateMember" parameterType="Member">
-		update tb_mybatis_member
-		   set  addr = #{addr},
-		       email = #{email}
-		 where    id = #{id}  
-	</update>
-	
-	<delete id="deleteMember" parameterType="string">
+	<!-- 트랜잭션 해야 하는 쿼리 -->
+	<delete id="deleteReserv" parameterType="int" >
 		delete 
-		  from tb_mybatis_member
-		 where id = #{id}  
+		  from tb_reservation
+		 where reserv_no = #{reservNo}
 	</delete>
+	
+	
+	<select id="countReserv" parameterType="int">
+		 select count(*) as reservCnt
+		   from tb_reservation
+		  where inning_no = #{inningNo} 
+	</select>
+	
 	
 </mapper>		
