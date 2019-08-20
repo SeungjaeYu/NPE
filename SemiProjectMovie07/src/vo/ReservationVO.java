@@ -2,7 +2,6 @@ package vo;
 
 public class ReservationVO extends ReservSeatVO {
 	
-	private int tempNo;
 	private int reservNo;
 	private int inningNo;
 	private int userNo;
@@ -15,25 +14,21 @@ public class ReservationVO extends ReservSeatVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReservationVO(int tempNo, int reservNo, int inningNo, int userNo, String movieTitle, String movieTime,
-			String theaterName, int reservRow, int reservCol) {
-		super();
-		this.tempNo = tempNo;
-		this.reservNo = reservNo;
+	public ReservationVO(int reservNo, int reservRow, int reservCol) {
+		super(reservNo, reservRow, reservCol);
+		// TODO Auto-generated constructor stub
+	}
+	public ReservationVO(int reservNo, int reservRow, int reservCol, int reservNo2, int inningNo, int userNo,
+			String movieTitle, String movieTime, String theaterName, int reservRow2, int reservCol2) {
+		super(reservNo, reservRow, reservCol);
+		reservNo = reservNo2;
 		this.inningNo = inningNo;
 		this.userNo = userNo;
 		this.movieTitle = movieTitle;
 		this.movieTime = movieTime;
 		this.theaterName = theaterName;
-		this.reservRow = reservRow;
-		this.reservCol = reservCol;
-	}
-	
-	public int getTempNo() {
-		return tempNo;
-	}
-	public void setTempNo(int tempNo) {
-		this.tempNo = tempNo;
+		reservRow = reservRow2;
+		reservCol = reservCol2;
 	}
 	public int getReservNo() {
 		return reservNo;
@@ -85,9 +80,9 @@ public class ReservationVO extends ReservSeatVO {
 	}
 	@Override
 	public String toString() {
-		return "ReservationVO [tempNo=" + tempNo + ", reservNo=" + reservNo + ", inningNo=" + inningNo + ", userNo="
-				+ userNo + ", movieTitle=" + movieTitle + ", movieTime=" + movieTime + ", theaterName=" + theaterName
-				+ ", reservRow=" + reservRow + ", reservCol=" + reservCol + "]";
+		return "ReservationVO [reservNo=" + reservNo + ", inningNo=" + inningNo + ", userNo=" + userNo + ", movieTitle="
+				+ movieTitle + ", movieTime=" + movieTime + ", theaterName=" + theaterName + ", reservRow=" + reservRow
+				+ ", reservCol=" + reservCol + "]";
 	}
 	
 	

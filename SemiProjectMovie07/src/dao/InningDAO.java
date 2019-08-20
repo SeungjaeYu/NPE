@@ -35,10 +35,8 @@ public class InningDAO {
 			pstmt.setInt(1, movieNo);
 			
 			ResultSet rs = pstmt.executeQuery();
-			int idx = 1;
 			while (rs.next()) {
 				InningVO inning = new InningVO();
-				inning.setTempNo(idx++);
 				inning.setInningNo(rs.getInt("inning_no"));
 				inning.setTheaterName(rs.getString("theater_name"));
 				inning.setMovieTime(rs.getString("movie_time"));
