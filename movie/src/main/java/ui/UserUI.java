@@ -3,18 +3,24 @@ package ui;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.UserDAO;
 import util.CommUtil;
 import vo.UserVO;
 
 public class UserUI {
+	private UserDAO dao;
 	
+	public UserUI() {
+		SqlSession session = db.MyAppSqlConfig.getSqlSessionInstance();
+		dao = session.getMapper(UserDAO.class);
+	}
 	
 	
 	boolean loginChk = false;
 	UserVO vo = null;
 	boolean adminChk = false;
-	UserDAO dao = new UserDAO();
 	
 	
 	
@@ -75,10 +81,10 @@ public class UserUI {
 	 */
 	public void loginUser() {
 		System.out.println("영화예매 계정으로 로그인.\n\n\n");
-		
-		String userId = CommUtil.getStr("아이디를 입력해주세요 : ");
-		String password = CommUtil.getStr("비밀번호를 입력해주세요 : ");
-		UserVO userVO = dao.selectOneUser(userId, password);
+		UserVO vo = new UserVO();
+		vo.setUserId( CommUtil.getStr("아이디를 입력해주세요 : "));
+		vo.setPassword( CommUtil.getStr("비밀번호를 입력해주세요 : "));
+		UserVO userVO = dao.selectOneUser(vo);
 		if (userVO == null) {
 			System.out.println("∴아이디나 비밀번호가 바르게 입력되지 않았습니다.");
 			System.out.println("다시 로그인해주세요.");
@@ -121,7 +127,7 @@ public class UserUI {
 	 * 유저 조회
 	 */
 	public void selectUser() {
-		UserVO userVO = dao.selectOneUser(vo.getUserId(), vo.getPassword());
+		UserVO userVO = dao.selectOneUser(vo);
 		System.out.println("-------------------------------------");
 		System.out.println("아이디 : " + userVO.getUserId());
 		System.out.println("이메일 : " + userVO.getUserEmail());
@@ -179,7 +185,7 @@ public class UserUI {
 			return;
 		}
 		if (delYN.equalsIgnoreCase("Y")) {
-			int no = dao.deleteUser(vo);
+			int no = dao.deleteUser(vo.getUserNo());
 			if (no == 0) {
 				System.out.println("============================");
 				System.out.println("회원삭제가 실패하였습니다!!");
@@ -205,7 +211,6 @@ public class UserUI {
 		loginChk = false;
 		adminChk = false;
 	}
-	
 	
 	
 }
