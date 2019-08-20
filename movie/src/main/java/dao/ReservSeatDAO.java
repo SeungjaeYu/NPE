@@ -38,10 +38,8 @@ public class ReservSeatDAO {
 			pstmt.setInt(1, inningNo);
 			
 			ResultSet rs = pstmt.executeQuery();
-			int idx = 1;
 			while (rs.next()) {
 				ReservationVO reservVO = new ReservationVO();
-				reservVO.setTempNo(idx++);
 				reservVO.setReservNo(rs.getInt("reserv_no"));
 				reservVO.setInningNo(rs.getInt("inning_no"));
 				reservVO.setUserNo(rs.getInt("user_no"));

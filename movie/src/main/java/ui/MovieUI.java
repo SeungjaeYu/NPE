@@ -51,15 +51,10 @@ public class MovieUI {
 				System.out.println("잘못 된 메뉴번호 입니다. 다시입력하세요. ");
 				userNum = CommUtil.getInt("메뉴 중 상세 조회할 글 번호나 처리할 항목을 선택하세요 : ");
 			}
-			MovieVO vo = null;
-			for (MovieVO movieVO : list) {
-				if (list.size() - userNum + 1 != movieVO.getTempNo()) continue;
-				vo = movieVO;
-			}
-			if (vo != null) {
-				inningUI.selectInningList(vo.getMovieNo(), userNo);
-				
-			}
+			MovieVO vo = list.get(list.size() - userNum);
+			
+			inningUI.selectInningList(vo.getMovieNo(), userNo);
+
 			
 		}
 		

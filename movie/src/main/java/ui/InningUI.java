@@ -49,17 +49,9 @@ public class InningUI {
 					System.out.println("잘못 된 메뉴번호 입니다. 다시입력하세요. ");
 					inningNo = CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
 				}
-				InningVO vo = null;
-				for (InningVO inningVO : list) {
-					if (inningNo != inningVO.getTempNo()) continue;
-					vo = inningVO;
-				}
-				if (vo != null) {
-					reservSeatUI.reservSeatList(vo.getInningNo(), userNo);
-					
-				} else {
-					System.out.println("없는 회차번호 입니다.");
-				}
+				InningVO vo = list.get(inningNo - 1);
+				reservSeatUI.reservSeatList(vo.getInningNo(), userNo);
+				 
 					
 				
 			}

@@ -235,6 +235,7 @@ public class MovieDAO {
 		} catch(Exception e) {
 			if(e.getMessage().contains("child record found"))
 				return 2;
+			//e.printStackTrace();
 		}
 		return 0;
 	}

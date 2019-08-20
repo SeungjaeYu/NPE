@@ -69,10 +69,7 @@ public class ReservationDAO {
 				reservList.add(reservVO);
 			}
 			
-			int idx = reservList.size(); 
-			for (ReservationVO reservVO : reservList) {
-				reservVO.setTempNo(idx--);
-			}
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();
