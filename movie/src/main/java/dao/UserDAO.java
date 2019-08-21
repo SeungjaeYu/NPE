@@ -20,4 +20,5 @@ public interface UserDAO {
 	// 회원 삭제(탈퇴한 회원)
 	int deleteUser(int userNo);
 
+	UserVO selectOneUserByUserNo(int userNo);
 }

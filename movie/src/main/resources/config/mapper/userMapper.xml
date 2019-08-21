@@ -32,6 +32,15 @@
 	   and t.password = #{password}
 </select>
 
+<!-- 사용자 번호 조회 -->
+<select id="selectOneUserByUserNo" parameterType="int" resultMap="userMap">
+	select *
+	  from tb_user t
+	 inner join tb_grade g
+	    on t.reserv_cnt between g.grade_min_reserv and g.grade_max_reserv
+	 where t.user_no = #{userNo}
+</select>
+
 <!-- 회원 추가 (회원 등록) -->
 <insert id="insertUser" parameterType="UserVO">
 	insert into tb_user (

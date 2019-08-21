@@ -184,4 +184,7 @@ public interface ReservationDAO {
 	int countReserv(int inningNo);
 	
 	
+	ReservationVO reservSelectOne(int reservNo);
+	
+	
 }

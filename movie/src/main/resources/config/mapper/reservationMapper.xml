@@ -39,6 +39,30 @@
 		       
 	</select>
 	
+	<select id="reservSelectOne" parameterType="int" 
+	resultMap="reservMap" >
+		select u.user_no,
+		       r.reserv_no,
+		       m.movie_title,
+		       i.movie_time,
+		       t.theater_name,
+		       s.reserv_col,
+		       s.reserv_row
+		  from tb_reserv_seat s
+		 inner join tb_reservation r
+		 	on s.reserv_no = r.reserv_no
+		 inner join tb_inning i
+		 	on r.inning_no = i.inning_no
+		 inner join tb_movie m
+		 	on m.movie_no = i.movie_no
+		 inner join tb_theater t
+		 	on i.theater_no = t.theater_no
+		 inner join tb_user u
+		 	on r.user_no = u.user_no
+		 where r.reserv_no = #{reservNo}
+	
+		       
+	</select>
 	
 	<!-- 트랜잭션 해야 하는 쿼리 -->
 	<insert id="insertReserv" parameterType="ReservationVO" >
