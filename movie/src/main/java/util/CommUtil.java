@@ -2,8 +2,11 @@ package util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -140,6 +143,9 @@ public class CommUtil {
 	public static int parseReservCol(int reservCol) {
 		return reservCol - 1;
 	}
-	
 
+	
+	
+	public static String[] movieTimeList = new String[] {"09:00","11:30", "13:10", "15:20", "17:00", "19:10", "21:30", "23:00", "24:40" };
+	
 }

@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -77,9 +78,18 @@ public class MovieUIAdmin {
 		int result = movieDAO.insertMovie(movieVO);
 		int movieInning = CommUtil.getInt("영화의 회차수를 입력하세요 :");
 		for ( int i = 1; i<= movieInning; i++) {
-			
+			System.out.println("--------------------------------");
+			int num = 1;
+			for (String s : CommUtil.movieTimeList) {
+				System.out.printf("%d\t%s%n", num++,s);
+			}
+			System.out.println("--------------------------------");
 			System.out.printf("%d회차", i);
-			String movieTime = CommUtil.getStr("의 시간을 입력하세요 : ");
+			String mvt = CommUtil.getStr("의 시간을 선택하세요 : ");
+			
+			String movieTime = CommUtil.movieTimeList[Integer.parseInt(mvt) - 1];
+			
+			
 			System.out.printf("%d회차", i);
 			String theaterName = CommUtil.getStr("의 상영관을 입력하세요 :");
 			
