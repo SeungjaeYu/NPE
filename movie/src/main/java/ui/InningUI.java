@@ -2,21 +2,28 @@ package ui;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.InningDAO;
 import dao.ReservationDAO;
 import util.CommUtil;
 import vo.InningVO;
-import vo.MovieVO;
-import vo.ReservationVO;
 
 public class InningUI {
+	SqlSession session;
+	private ReservationDAO reservationDAO;
+	private InningDAO inningDAO;
 
-	 ReservationDAO reservationDAO = new ReservationDAO();
+	private ReservSeatUI reservSeatUI = new ReservSeatUI();
+	
+	public InningUI() {
+		session = db.MyAppSqlConfig.getSqlSessionInstance();
+		reservationDAO = session.getMapper(ReservationDAO.class);
+		inningDAO = session.getMapper(InningDAO.class);
+	}
+	
 	 
-	 InningDAO inningDAO = new InningDAO();
-	 ReservSeatUI reservSeatUI = new ReservSeatUI();
-	 
-	 
+	
 	public void selectInningList(int movieNo, int userNo) {
 		inningOuter : 
 			while(true) {
@@ -28,7 +35,7 @@ public class InningUI {
 				System.out.println("------------------------------");
 				for (InningVO inning : list) {
 					int totSeatSize = inning.getSeatRow() * inning.getSeatCol();
-					int reservSize = reservationDAO.countRserv(inning.getInningNo());
+					int reservSize = reservationDAO.countReserv(inning.getInningNo());
 					System.out.printf(
 							"%-2d. %-10s%5s%5s",
 							no++,
@@ -51,8 +58,6 @@ public class InningUI {
 				}
 				InningVO vo = list.get(inningNo - 1);
 				reservSeatUI.reservSeatList(vo.getInningNo(), userNo);
-				 
-					
 				
 			}
 	}

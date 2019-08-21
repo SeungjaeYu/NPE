@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.InningDAO">
-	<resultMap type="" id="InningMap">
+	<resultMap type="InningVO" id="inningMap">
 		<result column="inning_no" property="inningNo"/>
 		<result column="movie_time" property="movieTime"/>
 		<result column="theater_name" property="theaterName"/>
@@ -12,7 +12,7 @@
 	
 	
 	<select id="selectInning" parameterType="int" 
-	resultMap="InningMap" >
+	resultMap="inningMap" >
 		select i.inning_no,
 			   i.movie_time,
 			   th.theater_name,
@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="selectOneInning" parameterType="int" 
-	 resultMap="InningMap" >
+	 resultMap="inningMap" >
 		select i.inning_no,
 			   i.movie_time,
 			   th.theater_name,
@@ -34,6 +34,20 @@
 		 where i.theater_no = th.theater_no and inning_no = #{inningNo}
 	</select>
 	
+	<insert id="insertInning" parameterType="InningVO">
+		insert into tb_inning (
+		inning_no, movie_no, movie_inning, movie_time, theater_no
+		) values (
+		tb_inning_seq.nextval, #{movieNo}, #{movieInning}, #{movieTime}, #{theaterNo}
+		)
+	
+	</insert>
+	
+	<delete id="deleteInnning" parameterType="int">
+		delete
+		  from tb_inning
+		 where movie_no = #{movieNo} 
+	</delete>
 
 	
 </mapper>		

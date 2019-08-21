@@ -2,14 +2,31 @@ package ui;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import dao.ReservSeatDAO;
 import dao.ReservationDAO;
+import dao.UserDAO;
 import util.CommUtil;
 import vo.ReservationVO;
 
 public class ReservationUI {
 	
-	ReservationDAO dao = new ReservationDAO();
+	SqlSession session;
 	
+	
+	private ReservationDAO reservationDAO;
+	private ReservSeatDAO reservSeatDAO;
+	private UserDAO userDAO;
+	
+	
+	public ReservationUI() {
+		session = db.MyAppSqlConfig.getSqlSessionInstance();
+		reservationDAO = session.getMapper(ReservationDAO.class);
+		reservSeatDAO = session.getMapper(ReservSeatDAO.class);
+		userDAO =  session.getMapper(UserDAO.class);
+		
+	}
 	
 	
 	public void service(int userNo) {
@@ -48,7 +65,7 @@ public class ReservationUI {
 	 */
 	public void selectReservList(int userNo) {
 		
-			List<ReservationVO> reservList = dao.reservList(userNo);
+			List<ReservationVO> reservList = reservationDAO.reservList(userNo);
 			System.out.println("예매 정보");
 			System.out.println("----------------------------------------");
 			System.out.printf("%2s%20s%16s%8s%8s\n"
@@ -82,7 +99,7 @@ public class ReservationUI {
 	public void deleteReserv(int userNo) {
 		
 		int reservRemove = CommUtil.getInt("취소할 예매 번호를 입력하세요 : ");
-		List<ReservationVO> reservList = dao.reservList(userNo);
+		List<ReservationVO> reservList = reservationDAO.reservList(userNo);
 		
 		while (reservRemove > reservList.size() || reservRemove < 0) {
 			System.out.println("잘못된 값을 입력하셨습니다.");
@@ -94,8 +111,11 @@ public class ReservationUI {
 		
 		String chkDel = CommUtil.getStr("정말로 예매를 취소하시겠습니까?(Y/N) : ");
 		if (chkDel.equalsIgnoreCase("Y")) {
-			int reservDel = dao.deleteReserv(vo.getReservNo(), userNo);
+			int reservDel = reservSeatDAO.deleteReservSeat(vo.getReservNo());
+			reservDel += reservationDAO.deleteReserv(vo.getReservNo());
+			reservDel += userDAO.updateUserReservRemove(userNo);
 			if (reservDel == 3) {
+				session.commit();
 				System.out.printf("선택하신 \'%s시 %s분 %s 좌석:%s\'이 취소되었습니다.\n"
 						, vo.getMovieTime().substring(0, vo.getMovieTime().indexOf(":"))
 						, vo.getMovieTime().substring(vo.getMovieTime().indexOf(":") + 1, vo.getMovieTime().length())
@@ -105,6 +125,7 @@ public class ReservationUI {
 				 return;
 			}
 		}
+		session.rollback();
 		System.out.println("예매가 취소되지 않았습니다.");
 		System.out.println("============================");
 		

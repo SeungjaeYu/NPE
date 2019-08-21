@@ -14,10 +14,10 @@ public interface UserDAO {
 	// 회원 정보 수정
 	int updateUser(UserVO vo);
 	// 회원 예매수 증가
-	void updateUserReservAdd(int no);
+	int updateUserReservAdd(int userNo);
 	// 회원 예매수 감소
-	void updateUserReservRemove(int no);
+	int updateUserReservRemove(int userNo);
 	// 회원 삭제(탈퇴한 회원)
-	int deleteUser(int no);
+	int deleteUser(int userNo);
 
 }

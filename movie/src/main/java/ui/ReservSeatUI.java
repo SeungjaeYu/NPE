@@ -2,19 +2,39 @@ package ui;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import dao.InningDAO;
 import dao.ReservSeatDAO;
 import dao.ReservationDAO;
+import dao.UserDAO;
 import util.CommUtil;
 import vo.InningVO;
+import vo.ReservSeatVO;
 import vo.ReservationVO;
 
 public class ReservSeatUI {
-	ReservSeatDAO reservSeatDAO = new ReservSeatDAO();
-	InningDAO inningDAO = new InningDAO();
 	
-	ReservationDAO reservDAO = new ReservationDAO();
 	
+	
+	SqlSession session;
+	
+	private ReservSeatDAO reservSeatDAO;
+	private InningDAO inningDAO;
+	private ReservationDAO reservDAO;
+	private UserDAO userDAO;
+	
+	public ReservSeatUI() {
+		session = db.MyAppSqlConfig.getSqlSessionInstance();
+		reservSeatDAO = session.getMapper(ReservSeatDAO.class);
+		inningDAO = session.getMapper(InningDAO.class);
+		reservDAO = session.getMapper(ReservationDAO.class);
+		userDAO = session.getMapper(UserDAO.class);
+	}
+	
+	
+	
+
 	/**
 	 * 회차별 상영관 예매 좌석 보기 및 예매 등록
 	 * 
@@ -100,13 +120,43 @@ public class ReservSeatUI {
 					continue reservOuter;
 				}
 				
+				ReservationVO reservVO = new ReservationVO();
+				reservVO.setInningNo(inningNo);
+				reservVO.setUserNo(userNo);
+				
+				int result = reservDAO.insertReserv(reservVO);
+				
+				ReservSeatVO reservSeatVO = new ReservSeatVO();
 				
 				
-				int result = reservDAO.insertReserv(inningNo, userNo, iocharReservRow, ioReservCol);
-					System.out.printf("선택하신  %s%d좌석이 예매 %s\n "
+				reservSeatVO.setReservNo(reservVO.getReservNo());
+				reservSeatVO.setReservRow(iocharReservRow);
+				
+				reservSeatVO.setReservCol(ioReservCol);
+				result += reservSeatDAO.insertReservSeat(reservSeatVO);
+				result += userDAO.updateUserReservAdd(userNo);
+				
+						
+				if (result == 3) {
+					session.commit();
+					System.out.printf("선택하신  %s%d좌석이 예매 되었습니다.\n "
 							, CommUtil.getReservRow(iocharReservRow),
-							CommUtil.getReservCol(ioReservCol),
-							result == 3 ? "되었습니다." : "실패하였습니다.");
+							CommUtil.getReservCol(ioReservCol));
+					return;
+				}
+				session.rollback();
+				System.out.printf("선택하신  %s%d좌석이 예매 실패 하였습니다.\n "
+						, CommUtil.getReservRow(iocharReservRow),
+						CommUtil.getReservCol(ioReservCol));
+				
+				
+				
+				
+				
+//					System.out.printf("선택하신  %s%d좌석이 예매 %s\n "
+//							, CommUtil.getReservRow(iocharReservRow),
+//							CommUtil.getReservCol(ioReservCol),
+//							result == 3 ? "되었습니다." : "실패하였습니다.");
 		}
 		
 		

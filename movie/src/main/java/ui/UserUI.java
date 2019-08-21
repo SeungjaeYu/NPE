@@ -10,11 +10,14 @@ import util.CommUtil;
 import vo.UserVO;
 
 public class UserUI {
-	private UserDAO dao;
+	
+	SqlSession session;
+	
+	private UserDAO userDAO;
 	
 	public UserUI() {
-		SqlSession session = db.MyAppSqlConfig.getSqlSessionInstance();
-		dao = session.getMapper(UserDAO.class);
+		session = db.MyAppSqlConfig.getSqlSessionInstance();
+		userDAO = session.getMapper(UserDAO.class);
 	}
 	
 	
@@ -33,13 +36,15 @@ public class UserUI {
 		userVO.setUserId(userId);
 		userVO.setPassword(password);
 		userVO.setUserEmail(userEmail);
-		int no = dao.insertUser(userVO);
+		int no = userDAO.insertUser(userVO);
 		
 		if (no == 0) {
+			session.rollback();
 			System.out.println("============================");
 			System.out.println("중복된 아이디의 회원이 있습니다!");
 			return;
 		}
+		session.commit();
 		System.out.println("============================");
 		System.out.println("회원가입이 완료되었습니다.");
 	}
@@ -50,7 +55,7 @@ public class UserUI {
 	
 	public void findUser() {
 		
-		List<UserVO> list = dao.selectAdminList();
+		List<UserVO> list = userDAO.selectAdminList();
 		System.out.println("비밀번호 찾기 메뉴를 선택하셨습니다.\n\n\n");
 		
 		
@@ -81,10 +86,10 @@ public class UserUI {
 	 */
 	public void loginUser() {
 		System.out.println("영화예매 계정으로 로그인.\n\n\n");
-		UserVO vo = new UserVO();
-		vo.setUserId( CommUtil.getStr("아이디를 입력해주세요 : "));
-		vo.setPassword( CommUtil.getStr("비밀번호를 입력해주세요 : "));
-		UserVO userVO = dao.selectOneUser(vo);
+		UserVO user = new UserVO();
+		user.setUserId( CommUtil.getStr("아이디를 입력해주세요 : "));
+		user.setPassword( CommUtil.getStr("비밀번호를 입력해주세요 : "));
+		UserVO userVO = userDAO.selectOneUser(user);
 		if (userVO == null) {
 			System.out.println("∴아이디나 비밀번호가 바르게 입력되지 않았습니다.");
 			System.out.println("다시 로그인해주세요.");
@@ -100,7 +105,7 @@ public class UserUI {
 	
 	
 	public void selectUserList() {
-		List<UserVO> userList = dao.selectAdminList();
+		List<UserVO> userList = userDAO.selectAdminList();
 		System.out.println("회원정보");
 		System.out.println("아이디\t이메일\t가입일\t등급");
 		System.out.println("----------------------------------------");
@@ -127,7 +132,7 @@ public class UserUI {
 	 * 유저 조회
 	 */
 	public void selectUser() {
-		UserVO userVO = dao.selectOneUser(vo);
+		UserVO userVO = userDAO.selectOneUser(vo);
 		System.out.println("-------------------------------------");
 		System.out.println("아이디 : " + userVO.getUserId());
 		System.out.println("이메일 : " + userVO.getUserEmail());
@@ -161,14 +166,16 @@ public class UserUI {
 		String userEmail = CommUtil.getStr("이메일 주소를 입력하세요 : ");
 		
 		vo.setUserEmail(userEmail);
-		int no = dao.updateUser(vo);
+		int no = userDAO.updateUser(vo);
 		
 		
 		if (no == 0) {
+			session.rollback();
 			System.out.println("============================");
 			System.out.println("회원정보 수정이 실패하였습니다!!");
 			return;
 		}
+		session.commit();
 		System.out.println("============================");
 		System.out.println("회원정보 수정이 완료되었습니다.");
 	}
@@ -185,13 +192,15 @@ public class UserUI {
 			return;
 		}
 		if (delYN.equalsIgnoreCase("Y")) {
-			int no = dao.deleteUser(vo.getUserNo());
+			int no = userDAO.deleteUser(vo.getUserNo());
 			if (no == 0) {
+				session.rollback();
 				System.out.println("============================");
 				System.out.println("회원삭제가 실패하였습니다!!");
 				System.out.println("============================");
 				return;
 			}
+				session.commit();
 				vo = null;
 				loginChk = false;
 				System.out.println("회원삭제가 완료되었습니다.");

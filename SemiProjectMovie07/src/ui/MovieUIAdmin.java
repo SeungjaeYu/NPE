@@ -131,6 +131,7 @@ public class MovieUIAdmin {
 			
 		int num = dao.modifyMovie(vo, originalTitle);
 		if (num == 0) {
+			
 			System.out.println();
 			System.out.println("중복된 이름의 영화가 있습니다.");
 			return;

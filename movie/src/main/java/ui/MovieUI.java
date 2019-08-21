@@ -3,7 +3,11 @@ package ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import dao.InningDAO;
 import dao.MovieDAO;
+import dao.ReservationDAO;
 import util.CommUtil;
 import vo.MovieVO;
 public class MovieUI {
@@ -14,8 +18,22 @@ public class MovieUI {
 	// 영화 수정 U
 	
 	// 영화리스트 조회 R
-	MovieDAO movieDAO = new MovieDAO();
-	InningUI inningUI = new InningUI();
+	
+	
+	private MovieDAO movieDAO;
+	private InningUI inningUI = new InningUI();
+//	private ReservSeatUI reservSeatUI = new ReservSeatUI();
+	
+	public MovieUI() {
+		SqlSession session = db.MyAppSqlConfig.getSqlSessionInstance();
+		movieDAO = session.getMapper(MovieDAO.class);
+	}
+	
+	
+	
+	
+	
+	
 	
 	public void selectMovieList(int userNo) {
 		

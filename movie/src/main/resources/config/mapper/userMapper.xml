@@ -2,18 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserDAO">
-<resultMap type="User" id="userMap">
+<resultMap type="UserVO" id="userMap">
 	<result column="user_no" property="userNo"/>
 	<result column="user_id" property="userId"/>
 	<result column="password" property="password"/>
 	<result column="user_email" property="userEmail"/>
 	<result column="reg_date" property="regDate"/>
 	<result column="reserv_cnt" property="reservCnt"/>
+	<result column="grade_name" property="gradeName"/>
+	<result column="discount_rate" property="discountRate" />
+	
 </resultMap>
 <!-- 관리자 기능 유저 전체 조회 -->
-<select id="selectAdminList" resultMap="UserMap">
+<select id="selectAdminList" resultMap="userMap">
 	select *
-	  from tb_user
+	  from tb_user t
+	 inner join tb_grade g
+	    on t.reserv_cnt between g.grade_min_reserv and g.grade_max_reserv
 	 order by user_no desc
 </select>
 
@@ -23,8 +28,8 @@
 	  from tb_user t
 	 inner join tb_grade g
 	    on t.reserv_cnt between g.grade_min_reserv and g.grade_max_reserv
-	 where t.user_id = #{ id }
-	   and t.password = #{ password }
+	 where t.user_id = #{userId}
+	   and t.password = #{password}
 </select>
 
 <!-- 회원 추가 (회원 등록) -->

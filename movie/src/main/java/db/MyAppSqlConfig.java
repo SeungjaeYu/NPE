@@ -14,7 +14,7 @@ public class MyAppSqlConfig {
 			String resource = "config/mybatis/sqlMapConfig.xml";
 			Reader reader = Resources.getResourceAsReader(resource);
 			SqlSessionFactory sqlFactory = new SqlSessionFactoryBuilder().build(reader);
-			sqlMapper = sqlFactory.openSession();		// 자동커밋됨
+			sqlMapper = sqlFactory.openSession(false);		// 자동커밋됨
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(

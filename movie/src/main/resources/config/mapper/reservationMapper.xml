@@ -60,7 +60,7 @@
 	</delete>
 	
 	
-	<select id="countReserv" parameterType="int">
+	<select id="countReserv" parameterType="int" resultType="int">
 		 select count(*) as reservCnt
 		   from tb_reservation
 		  where inning_no = #{inningNo} 

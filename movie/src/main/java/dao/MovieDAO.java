@@ -13,13 +13,15 @@ import util.ConnectionPool;
 import util.SqlExecutor;
 import vo.MovieVO;
 
-public class MovieDAO {
+public interface MovieDAO {
 	/**
 	 * 메서드 명 : selectMovie()
 	 * 기능 정의 : 등록된 영화 목록 조회
 	 * @return
 	 */
-	public List<MovieVO> selectMovie() {
+	List<MovieVO> selectMovie();
+	/*
+	{
 		List<MovieVO> list = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -56,13 +58,18 @@ public class MovieDAO {
 		
 		return list;
 	}
+	*/
 	
 	/**
 	 * 선택한 영화 조회
 	 * @param movieNo
 	 * @return
 	 */
-	public MovieVO selectOneMovie(String originalTitle) {
+	MovieVO selectOneMovie(String originalTitle);
+	/*
+	{
+		
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -93,8 +100,9 @@ public class MovieDAO {
 		}
 
 		return null;
+		
 	}
-	
+	*/
 	
 	
 	
@@ -103,13 +111,18 @@ public class MovieDAO {
 	 * 기능 정의 : 영화 등록
 	 * @return
 	 */
-	public static int insertMovie(String movieTitle, String movieDirector, String movieActor, String viewingGrade,
-							int movieInning, String movieTime, String theaterName) {
+	int insertMovie(MovieVO movieVO); 
+	/*
+	{
+		
+		
+		
+		
+		 * insertMovie(String movieTitle, String movieDirector, String movieActor, String viewingGrade,
+							int movieInning, String movieTime, int theaterNo)
+		 */
 		
 		/*
-		 * String movieTitle, String movieDirector, String movieActor, String viewingGrade,
-							int movieInning, String movieTime, int theaterNo
-		 */
 		String[] movieDel = new String[3];
 		
 		Connection con = null;
@@ -120,7 +133,7 @@ public class MovieDAO {
 		
 		movieDel[0] = " insert into tb_movie (movie_no, movie_title, movie_director, movie_actor, viewing_grade)"
 				+ " values (?,?,?,?,?)";
-		movieDel[1] = " select theater_no from tb_theater where theater_name = ? ";
+		movieDel[1] = " select theater_no from tb_theater where theater_name = ? "; // select * 절이 mapper에 있음. 재사용 할 수 있게
 		movieDel[2] = " insert into tb_inning (inning_no, movie_no, movie_inning, movie_time, theater_no)"
 				+ " values (tb_inning_seq.nextval,?,?,?,?)";
 		ResultSet rs =  null;
@@ -189,8 +202,9 @@ public class MovieDAO {
 		
 		
 		return 0;
+		
 	}
-	
+	*/
 	/*
 	public int insertMovie(MovieVO movie) {
 		try {
@@ -209,7 +223,10 @@ public class MovieDAO {
 	/**
 	 * 영화 수정
 	 */
-	public int modifyMovie(MovieVO vo, String originalTitle) {
+	int updateMovie(MovieVO movieVO);
+	/*
+	{
+		
 		try {
 			return SqlExecutor.update(
 					"update tb_movie set movie_title = ?, movie_director = ?, movie_actor = ?, viewing_grade = ? where movie_title = ? ",
@@ -219,14 +236,20 @@ public class MovieDAO {
 			
 		}
 		return 0;
+		
 	}
-	
+	*/
 	/**
 	 * 메서드 명 : deleteMovie()
 	 * 기능 정의 : 영화 삭제
 	 * @return
 	 */
-	public int deleteMovie(String movieTitle) {
+	int deleteMovie(String movieTitle);
+	/*
+	{
+		
+		// !!child record found 처리 어디서 할 건지
+		
 		String tableName = "TB_MOVIE";
 		try {
 			return SqlExecutor.update(
@@ -238,5 +261,8 @@ public class MovieDAO {
 			//e.printStackTrace();
 		}
 		return 0;
+		
 	}
+	
+	*/
 }

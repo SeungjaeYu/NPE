@@ -2,90 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.MovieDAO">
-	<select id="selectMemberInfo1" parameterType="string" 
-	resultType="Member" >
-		select id,
-			   name,
-			   addr,
-			   email
-		  from tb_mybatis_member
-		 where id = #{id} 	   
+
+	<resultMap type="MovieVO" id="movieMap">
+		<result column="movie_no" property="movieNo" />
+		<result column="movie_title" property="movieTitle" />
+		<result column="movie_director" property="movieDirector" />
+		<result column="movie_actor" property="movieActor" />
+		<result column="viewing_grade" property="viewingGrade" />
+	</resultMap>
+
+
+	<select id="selectMovie" resultMap="movieMap">
+		select * 
+		  from tb_movie
+		 order by movie_no desc 
 	</select>
 	
-	<select id="selectMemberInfo2" parameterType="Member" 
-	 resultType="Member" >
-		select id,
-			   name,
-			   addr,
-			   email
-		  from tb_mybatis_member
-		 where id   = #{id}
-		   and name = #{name}
-	</select>
-	
-	<select id="selectMemberInfo3" parameterType="string"
-	 resultType="string">
-		select name
-		  from tb_mybatis_member
-		 where id = #{id} 
-	</select>
-	
-	<select id="selectMemberInfo4" resultType="int">
-		select count(*)
-		  from tb_mybatis_member
-	</select>
-	
-	<select id="selectMemberList1" resultType="Member">
-		select id,
-			   name,
-			   email,
-			   addr,
-			   join_date as joinDate
-		  from tb_mybatis_member
-		 order by id
-	</select>
-		
-	<select id="selectMemberList2" resultType="string">
-		select name
-		  from tb_mybatis_member
-		 order by id 
-	</select>
-	
-	<!-- SQL의 결과와 VO 를 결합  -->
-	<resultMap type="Member" id="memberMap">
-		<result column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="addr" property="addr" />
-		<result column="email" property="email" />
-		<result column="join_date" property="joinDate" />
-	</resultMap>	
-		
-	<select id="selectMemberList3" resultMap="memberMap">
+	<select id="selectOneMovie" parameterType="string" 
+	 resultMap="movieMap">
 		select *
-		  from tb_mybatis_member
-		 order by id 
+		  from tb_movie
+		 where movie_title = #{movieTitle} 
 	</select>
 	
-	<!-- resultType은 무조건 int이므로 따로 명시해 주지 않아도 자동 int로 반환한다. -->
-	<insert id="insertMember" parameterType="Member">
-		insert into tb_mybatis_member(
-			id, name, email, addr
-		)values (
-		#{id}, #{name}, #{email}, #{addr}
-		)
+	<!-- 트랜잭션 처리 -->
+	
+	<insert id="insertMovie" parameterType="MovieVO">
+		<selectKey keyProperty="movieNo" resultType="int" order="BEFORE">
+			select tb_movie_seq.nextval from dual
+		</selectKey>
+			insert into tb_movie (
+			movie_no, movie_title, movie_director, movie_actor, viewing_grade
+			) values (
+			#{movieNo}, #{movieTitle}, #{movieDirector}, #{movieActor}, #{viewingGrade}
+			)
 	</insert>
 	
-	<update id="updateMember" parameterType="Member">
-		update tb_mybatis_member
-		   set  addr = #{addr},
-		       email = #{email}
-		 where    id = #{id}  
+	
+	<update id="updateMovie" parameterType="MovieVO">
+		update tb_movie
+	       set movie_title = #{movieTitle},
+	           movie_director = #{movieDirector},
+	           movie_actor = #{movieActor},
+	           viewing_grade = #{viewingGrade} 
+	 	 where movie_no = #{movieNo}
 	</update>
 	
-	<delete id="deleteMember" parameterType="string">
+	<delete id="deleteMovie" parameterType="string">
 		delete 
-		  from tb_mybatis_member
-		 where id = #{id}  
+		  from tb_movie
+		 where movie_title = #{movieTitle}
 	</delete>
+	
+	
+	
 	
 </mapper>		

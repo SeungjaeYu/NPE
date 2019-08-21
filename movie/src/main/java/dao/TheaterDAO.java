@@ -11,14 +11,16 @@ import util.ConnectionPool;
 import util.SqlExecutor;
 import vo.TheaterVO;
 
-public class TheaterDAO {
+public interface TheaterDAO {
 
 
 	/**
 	 * 상영관 전체 리스트
 	 * @return
 	 */
-	public List<TheaterVO> selectTheaterList() {
+	List<TheaterVO> selectTheaterList();
+	/*
+	{
 		List<TheaterVO> theaterList = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -52,14 +54,16 @@ public class TheaterDAO {
 		}
 		return theaterList;
 	}
-
+	 */
 	
 	/**
 	 * 상영관 정보 조회
 	 * @param theaterNo
 	 * @return
 	 */
-	public TheaterVO selectOneTheater(String theaterName) {
+	TheaterVO selectOneTheater(String theaterName);
+	/*
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -91,13 +95,15 @@ public class TheaterDAO {
 		return null;
 	}
 
-	
+	*/
 	
 	/**
 	 * 상영관 정보 입력
 	 * @param vo
 	 */
-	public int insertTheater(TheaterVO vo) {
+	int insertTheater(TheaterVO vo); 
+	/*
+	{
 
 		try {
 			return SqlExecutor.update(
@@ -109,12 +115,14 @@ public class TheaterDAO {
 		}
 		return 0;
 	}
-	
+	*/
 	/**
 	 * 상영관정보 수정
 	 * @param vo
 	 */
-	public int updateTheater(TheaterVO vo, String originalName) {
+	int updateTheater(TheaterVO vo);
+	/*
+	{
 		try {
 			return  SqlExecutor.update(
 					"update tb_theater set theater_name = ? ,seat_row =?, seat_col = ? where theater_name = ?",
@@ -125,13 +133,16 @@ public class TheaterDAO {
 		}
 		return 0;
 	}
-	
+	*/
 	/**
 	 * 상영관 삭제
 	 * @param no
 	 * @return
 	 */
-	public int deleteTheater(String theaterName) {
+	int deleteTheater(String theaterName);
+	
+	/*
+	{	// child record found 처리해야 함
 		int result = 0;
 		try {
 			result = SqlExecutor.update("delete from tb_theater where theater_name = ? ", theaterName
@@ -145,7 +156,7 @@ public class TheaterDAO {
 		}
 		return result;
 	}
-	
+	*/
 	
 
 }

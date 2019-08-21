@@ -181,6 +181,7 @@ public interface ReservationDAO {
 	}
 	*/
 	
+	int countReserv(int inningNo);
 	
 	
 }

@@ -10,12 +10,16 @@ public interface InningDAO {
 	 * 기능 정의 : 등록 된 회차 목록 조회
 	 */
 	
-	public List<InningVO> selectInning(int movieNo);
+	List<InningVO> selectInning(int movieNo);
 	
 	/**
 	 * 메서드 명 : selectOneInning()
 	 * 기능 정의 : 등록 된 회차 하나 조회
 	 */
-	public InningVO selectOneInning(int inningNo);
+	InningVO selectOneInning(int inningNo);
+	
+	int insertInning(InningVO inningVO);
+	
+	int deleteInnning(int movieNo);
 	
 }
