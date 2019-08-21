@@ -41,7 +41,7 @@ public class UserUI {
 		if (no == 0) {
 			session.rollback();
 			System.out.println("============================");
-			System.out.println("중복된 아이디의 회원이 있습니다!");
+			System.out.println("중복된 아이디의 회원이 있습니다. ");
 			return;
 		}
 		session.commit();
@@ -110,7 +110,7 @@ public class UserUI {
 		System.out.println("아이디\t이메일\t가입일\t등급");
 		System.out.println("----------------------------------------");
 		if (userList.isEmpty()) {
-			System.out.println("아직 가입한 회원이 없습니다!");
+			System.out.println("아직 가입한 회원이 없습니다. ");
 			System.out.println("----------------------------------------");
 			return;
 		}
@@ -172,7 +172,7 @@ public class UserUI {
 		if (no == 0) {
 			session.rollback();
 			System.out.println("============================");
-			System.out.println("회원정보 수정이 실패하였습니다!!");
+			System.out.println("회원정보 수정이 실패하였습니다.");
 			return;
 		}
 		session.commit();
@@ -188,7 +188,7 @@ public class UserUI {
 
 		String delYN = CommUtil.getStr("정말로 회원 탈퇴를 하시겠습니까?(Y/N) ");
 		if (adminChk) {
-			System.out.println("관리자는 아이디 삭제를 하실 수 없습니다!!");
+			System.out.println("관리자는 아이디 삭제를 하실 수 없습니다. ");
 			return;
 		}
 		if (delYN.equalsIgnoreCase("Y")) {
@@ -196,7 +196,7 @@ public class UserUI {
 			if (no == 0) {
 				session.rollback();
 				System.out.println("============================");
-				System.out.println("회원삭제가 실패하였습니다!!");
+				System.out.println("회원삭제가 실패하였습니다. ");
 				System.out.println("============================");
 				return;
 			}

@@ -57,7 +57,7 @@ public class TheaterUI {
 		System.out.println("2. 상영관 삭제");
 		System.out.println("0. 이전");
 		System.out.println("-----------------");
-		return CommUtil.getInt("원하시는 서비스 번호를 입력해주세요 : ");
+		return CommUtil.getInt("원하는 서비스 번호를 입력해주세요 : ");
 	}
 	public void modifyTheater() {
 		outer: while (true) {
@@ -149,7 +149,7 @@ public class TheaterUI {
 		System.out.println("2. 상영관 수정 및 삭제");
 		System.out.println("0. 이전");
 		System.out.println("-----------------");
-		return CommUtil.getInt("원하시는 서비스 번호를 입력해주세요 : ");
+		return CommUtil.getInt("원하는 서비스 번호를 입력해주세요 : ");
 	}
 
 	public void theater() {

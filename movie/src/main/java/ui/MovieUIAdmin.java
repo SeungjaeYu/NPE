@@ -42,7 +42,7 @@ public class MovieUIAdmin {
 				break;
 			case 0: break outer;
 			default:
-				System.out.println("잘못된 메뉴번호 입니다.");
+				System.out.println("잘못된 번호 입니다.");
 				System.out.println("다시 선택해 주세요.");
 				
 			}
@@ -55,7 +55,7 @@ public class MovieUIAdmin {
 		System.out.println("  2. 영화수정 및 삭제");
 		System.out.println("  0. 이전");
 		System.out.println("------------------------------");
-		return CommUtil.getInt("원하시는 서비스 번호를 입력해주세요 : ");
+		return CommUtil.getInt("원하는 서비스 번호를 입력해주세요 : ");
 	}
 
 	
@@ -128,7 +128,7 @@ public class MovieUIAdmin {
 		System.out.println("2. 영화 삭제");
 		System.out.println("0. 이전");
 		System.out.println("-----------------");
-		return CommUtil.getInt("원하시는 서비스 번호를 입력해주세요 : ");
+		return CommUtil.getInt("원하는 서비스 번호를 입력해주세요 : ");
 	}
 	
 	public void modifyMovie() {
@@ -140,7 +140,7 @@ public class MovieUIAdmin {
 		System.out.println("제목\t감독\t배우\t등급");
 		System.out.println("------------------------------");
 		for (MovieVO movie : list) {
-			System.out.printf("%3d\t%-30s\t%-15s\t%-5s\t%-10s", no--, movie.getMovieTitle(),
+			System.out.printf("%3d\t%-30s%-15s%-5s%-10s", no--, movie.getMovieTitle(),
 					movie.getMovieDirector(), movie.getMovieActor(), movie.getViewingGrade());
 			System.out.println();
 		}

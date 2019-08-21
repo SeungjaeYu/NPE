@@ -91,7 +91,7 @@ public class ReservSeatUI {
 				System.out.println("관리자는 예매를 하실 수 없습니다.");
 				continue reservOuter;
 			}
-				String ioReservRow = CommUtil.getStr("에매할 좌석의 행을 입력하세요 : ");
+				String ioReservRow = CommUtil.getStr("예매할 좌석의 행을 입력하세요 : ");
 				int iocharReservRow = 0;
 				
 				// 행을 입력할 때 A~Z 이외의 값이 나오면 예외 발생
@@ -103,7 +103,7 @@ public class ReservSeatUI {
 				}
 				
 				
-				int ioReservCol = CommUtil.parseReservCol(CommUtil.getInt(("에매할 좌석의 열을 입력하세요 : ")));
+				int ioReservCol = CommUtil.parseReservCol(CommUtil.getInt(("예매할 좌석의 열을 입력하세요 : ")));
 				
 				
 				// 상영관 사이즈보다 크거나 작은 값 입력한 경우
@@ -145,7 +145,7 @@ public class ReservSeatUI {
 					return;
 				}
 				session.rollback();
-				System.out.printf("선택하신  %s%d좌석이 예매 실패 하였습니다.\n "
+				System.out.printf("선택하신  %s%d좌석 예매를 실패 하였습니다.\n "
 						, CommUtil.getReservRow(iocharReservRow),
 						CommUtil.getReservCol(ioReservCol));
 				

@@ -49,7 +49,7 @@ public class MovieUI {
 			System.out.println("------------------------------");
 			for (MovieVO movie : list) {
 				System.out.printf(
-						"%3d\t%-30s\t%-15s\t%-5s\t%-10s", 
+						"%3d\t%-30s%-15s%-5s%-10s", 
 						no--,
 						movie.getMovieTitle(), 
 						movie.getMovieDirector(),
@@ -61,13 +61,13 @@ public class MovieUI {
 			System.out.println("  0. 이전");
 			System.out.println("------------------------------");
 			
-			int userNum = CommUtil.getInt("메뉴 중 상세 조회할 글 번호나 처리할 항목을 선택하세요 : ");
+			int userNum = CommUtil.getInt("상세 조회할 영화 번호를 입력하세요. : ");
 			
 			if (userNum == 0) break movieOuter;
 			
 			while (userNum > list.size() || userNum < 0) {
-				System.out.println("잘못 된 메뉴번호 입니다. 다시입력하세요. ");
-				userNum = CommUtil.getInt("메뉴 중 상세 조회할 글 번호나 처리할 항목을 선택하세요 : ");
+				System.out.println("잘못 된 번호 입니다. 다시입력하세요. ");
+				userNum = CommUtil.getInt("상세 조회할 영화 번호를 입력하세요. : ");
 			}
 			MovieVO vo = list.get(list.size() - userNum);
 			
