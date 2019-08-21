@@ -62,6 +62,10 @@ public class TheaterUI {
 	public void modifyTheater() {
 		outer: while (true) {
 			List<TheaterVO> list = theaterDAO.selectTheaterList();
+			if (list.isEmpty()) {
+				System.out.println("상영관이 없습니다.");
+				return;
+			}
 			for (TheaterVO vo : list) {
 				System.out.printf("%s\t %d행\t %d열\n", vo.getTheaterName(), vo.getSeatRow(), vo.getSeatCol());
 			}

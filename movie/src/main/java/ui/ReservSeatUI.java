@@ -50,10 +50,19 @@ public class ReservSeatUI {
 			
 			// 전체 자리수 가져오기
 			InningVO seatTotSize = inningDAO.selectOneInning(inningNo);
+			if (seatTotSize == null) {
+				System.out.println("잘못된 값을 입력하셨습니다.");
+				return;
+			}
+			
 			int[][] seatMovie = new int[seatTotSize.getSeatRow()][seatTotSize.getSeatCol()];
 			
 			// 회차 당 영화 예매된 자리 조회
 			List<ReservationVO> list = reservSeatDAO.reservSeatList(inningNo);	
+			if (list.isEmpty()) {
+				System.out.println("자리 조회가 불가능한 상태입니다.");
+				return;
+			}
 			for (ReservationVO reservVO : list) {
 				seatMovie[reservVO.getReservRow()][reservVO.getReservCol()] = 1;
 			}

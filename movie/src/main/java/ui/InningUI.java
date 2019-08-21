@@ -33,6 +33,10 @@ public class InningUI {
 				System.out.println("------------------------------");
 				System.out.println("상영시간\t잔여  좌석수\t상영관");
 				System.out.println("------------------------------");
+				if (list.isEmpty()) {
+					System.out.println("상영중인 정보가 없습니다.");
+					return;
+				}
 				for (InningVO inning : list) {
 					int totSeatSize = inning.getSeatRow() * inning.getSeatCol();
 					int reservSize = reservationDAO.countReserv(inning.getInningNo());

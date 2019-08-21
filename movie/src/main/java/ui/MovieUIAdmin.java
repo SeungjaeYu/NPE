@@ -77,6 +77,12 @@ public class MovieUIAdmin {
 		movieVO.setViewingGrade(viewingGrade);
 		int result = movieDAO.insertMovie(movieVO);
 		int movieInning = CommUtil.getInt("영화의 회차수를 입력하세요 :");
+		
+		while (movieInning <= 0) {
+			System.out.println("0보다 큰 회차를 입력하셔야 합니다.");
+			movieInning = CommUtil.getInt("영화의 회차수를 입력하세요 :");
+		}
+		
 		for ( int i = 1; i<= movieInning; i++) {
 			System.out.println("--------------------------------");
 			int num = 1;
@@ -149,6 +155,10 @@ public class MovieUIAdmin {
 		System.out.println("------------------------------");
 		System.out.println("제목\t감독\t배우\t등급");
 		System.out.println("------------------------------");
+		if (list.isEmpty()) {
+			System.out.println("상영중인 영화가 없습니다.");
+			return;
+		}
 		for (MovieVO movie : list) {
 			System.out.printf("%3d\t%-30s%-15s%-5s%-10s", no--, movie.getMovieTitle(),
 					movie.getMovieDirector(), movie.getMovieActor(), movie.getViewingGrade());

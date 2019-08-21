@@ -75,7 +75,6 @@ public class ReservationUI {
 			
 			if (reservList.isEmpty()) {
 				System.out.println("예매 내역이 없습니다.");
-				
 			} else {
 				for (ReservationVO reservVO : reservList) {
 					System.out.printf("%2s%20s%16s%8s%8s\n", reservCnt--, reservVO.getMovieTitle(),
