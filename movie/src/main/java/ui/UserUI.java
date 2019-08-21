@@ -118,7 +118,7 @@ public class UserUI {
 		for (UserVO userVO : userList) {
 			System.out.print(userVO.getUserId() + "\t");
 			System.out.print( userVO.getUserEmail() + "\t");
-			System.out.print(userVO.getRegDate() + "\t");
+			System.out.print(CommUtil.getDate(userVO.getRegDate()) + "\t");
 			System.out.println(userVO.getGradeName() + "\t");
 			
 		}
@@ -136,7 +136,7 @@ public class UserUI {
 		System.out.println("-------------------------------------");
 		System.out.println("아이디 : " + userVO.getUserId());
 		System.out.println("이메일 : " + userVO.getUserEmail());
-		System.out.println("가입일 : " + userVO.getRegDate());
+		System.out.println("가입일 : " + CommUtil.getDate(userVO.getRegDate()));
 		System.out.println("영화예매수 : " + userVO.getReservCnt());
 		System.out.println("등급 : " + userVO.getGradeName());
 		System.out.println("할인율 : " + (userVO.getDiscountRate() * 100) + "%" );

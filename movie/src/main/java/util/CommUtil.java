@@ -16,17 +16,20 @@ import java.util.Scanner;
  *
  */
 
+
 public class CommUtil {
-	protected SimpleDateFormat loginSdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
+	public SimpleDateFormat loginSdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
 	private static Scanner sc = new Scanner(System.in);
 	
+	private static final String DATE_FORMAT = "yyyy-MM-dd";
+	private static final String DATE_FORMAT_TIME = "yyyy-MM-dd HH:mm:ss";
 	
 	/**
 	 * 년/월/일 시:분:초를 구하여 문자열로 반환한다.
 	 * @return
 	 */
 	public static String getDate() {
-		return getDate("yyyy/MM/dd HH:mm:ss");
+		return getDate(DATE_FORMAT);
 	}
 	
 	/**
@@ -41,6 +44,17 @@ public class CommUtil {
         return df.format(c.getTime());
 	}
 	
+
+	/**
+	 * 	parseDate를 구하여 문자열로 반환한다.
+	 * 	@return
+	 */
+	public static String getDate(Date parseDate) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(parseDate);
+		DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+		return df.format(c.getTime());
+	}
 
 	/**
 	 * 
