@@ -29,7 +29,8 @@ public class MainUI {
 			
 			case 3 :if (userUI.loginChk && userUI.adminChk)	movieUIAdmin.movie(); else movieUI.selectMovieList( userUI.vo != null ? userUI.vo.getUserNo() : 0 ); break;
 			
-			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.service(userUI.vo.getUserNo());  break;
+			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.service(userUI.vo.getUserNo()); else userUI.findUser(); break;
+			
 			case 0: quit();
 
 			default:
@@ -49,6 +50,7 @@ public class MainUI {
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원가입");
 			System.out.println("3. 영화조회");
+			System.out.println("4. 비밀번호찾기");
 			System.out.println("0. 종료");
 			System.out.println("--------------------------------");
 		} else if (userUI.loginChk && userUI.adminChk) {

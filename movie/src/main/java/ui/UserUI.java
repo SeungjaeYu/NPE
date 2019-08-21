@@ -59,10 +59,10 @@ public class UserUI {
 		System.out.println("비밀번호 찾기 메뉴를 선택하셨습니다.\n\n\n");
 		
 		
-		String findId = CommUtil.getStr("비밀번호를 찾을 아이디를 입력해주세요.");
-		String findEmail = CommUtil.getStr("이메일 주소를 입력해주세요.");
+		String findId = CommUtil.getStr("비밀번호를 찾을 아이디를 입력해주세요. :");
+		String findEmail = CommUtil.getStr("이메일 주소를 입력해주세요. : ");
 		for (UserVO vo : list) {
-			if (!vo.getUserId().equals(findId) && !vo.getUserEmail().equals(findEmail)) continue;
+			if (vo.getUserId().equals(findId) && vo.getUserEmail().equals(findEmail)) {
 			
 			
 			System.out.println("∴비밀번호 찾기에 성공하셨습니다.∴");
@@ -71,7 +71,7 @@ public class UserUI {
 			System.out.println("--------------------");
 			System.out.println("메인메뉴로 돌아갑니다");
 			return;
-					
+			}	
 		}
 		
 		System.out.println("비밀번호 찾기에 실패하셨습니다.");
