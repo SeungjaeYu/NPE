@@ -70,7 +70,12 @@ public class CommUtil {
 		while (true) {
 			try {
 				System.out.print(msg);
-				return sc.nextLine();
+				String resultStr = sc.nextLine();
+				if ("".equals(resultStr.trim())) {
+					System.out.println("공백은 입력하실 수 없습니다. 다시 입력해주세요.");
+					continue;
+				}
+				return resultStr;
 			} catch (Exception e) {
 				System.out.println("잘못된 값을 입력하셨습니다. 제대로 된 문자를 넣어주세요");
 			}
