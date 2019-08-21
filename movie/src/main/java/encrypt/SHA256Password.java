@@ -3,7 +3,8 @@ package encrypt;
 import java.security.MessageDigest;
 
 public class SHA256Password {
-	public static void LockPassword(String password) {
+	
+	public String LockPassword(String password) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] hash = digest.digest(password.getBytes("UTF-8"));
@@ -15,8 +16,7 @@ public class SHA256Password {
 					hexString.append('0');
 				hexString.append(hex);
 			}
-			// 출력
-			System.out.println(hexString.toString());
+			return hexString.toString();
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
 		}

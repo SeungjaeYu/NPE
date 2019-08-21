@@ -6,11 +6,12 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dao.UserDAO;
+import encrypt.SHA256Password;
 import util.CommUtil;
 import vo.UserVO;
 
 public class UserUI {
-	
+	SHA256Password sha256 = new SHA256Password();
 	SqlSession session;
 	
 	private UserDAO userDAO;
@@ -34,7 +35,7 @@ public class UserUI {
 		String userEmail = CommUtil.getStr("이메일 주소를 입력하세요 : ");
 		
 		userVO.setUserId(userId);
-		userVO.setPassword(password);
+		userVO.setPassword(sha256.LockPassword(password));
 		userVO.setUserEmail(userEmail);
 		int no = userDAO.insertUser(userVO);
 		
@@ -88,7 +89,7 @@ public class UserUI {
 		System.out.println("영화예매 계정으로 로그인.\n\n\n");
 		UserVO user = new UserVO();
 		user.setUserId( CommUtil.getStr("아이디를 입력해주세요 : "));
-		user.setPassword( CommUtil.getStr("비밀번호를 입력해주세요 : "));
+		user.setPassword(sha256.LockPassword(CommUtil.getStr("비밀번호를 입력해주세요 : ")));
 		UserVO userVO = userDAO.selectOneUser(user);
 		if (userVO == null) {
 			System.out.println("∴아이디나 비밀번호가 바르게 입력되지 않았습니다.");
