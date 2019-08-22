@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import dao.UserDAO;
 import encrypt.SHA256Password;
 import util.CommUtil;
+import util.SendEmail;
 import vo.UserVO;
 
 public class UserUI {
@@ -36,6 +37,30 @@ public class UserUI {
 		String userId = CommUtil.getStr("아이디를 입력하세요 : ");
 		String password = CommUtil.getStr("비밀번호를 입력하세요 : ");
 		String userEmail = CommUtil.getStr("이메일 주소를 입력하세요 : ");
+		String randomNum = CommUtil.randomKey();
+		System.out.println("인증번호를 메일로 발송중입니다....");
+		new SendEmail(userEmail, "인증번호 입니다.", randomNum);
+		System.out.println("인증번호를 메일로 발송 완료하였습니다.");
+		String emailKey = CommUtil.getStr("메일에서 확인한 인증번호를 입력하세요 : ");
+		
+		int keyChkIdx = 4;
+		
+		for (int i = 1; i <= keyChkIdx ; i++) {
+			if (i == keyChkIdx) {
+				System.out.println("회원가입이 실패하였습니다.");
+				return;
+			}
+			if (!randomNum.equals(emailKey)) {
+				System.out.println(i + "회 입력 오류입니다.(" + i + "/3)");
+				if (keyChkIdx > i + 1) {
+					System.out.println("인증번호가 같지 않습니다. 다시 입력해주세요.");
+					emailKey = CommUtil.getStr("메일에서 확인한 인증번호를 입력하세요 : ");
+				}
+				continue;
+			} else break;
+		}
+		
+		
 		
 		userVO.setUserId(userId);
 		userVO.setPassword(sha256.LockPassword(password));

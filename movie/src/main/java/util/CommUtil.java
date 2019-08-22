@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.security.MessageDigest;
 
@@ -155,4 +156,12 @@ public class CommUtil {
 			"23:00", "24:40" };
 
 	
+	/**
+	 *  이메일 인증 코드를 위한 난수 생성
+	 * 
+	 * @return
+	 */
+	public static String randomKey() {
+		return String.valueOf(new Random().nextInt(900000) + 100000);
+	}
 }
