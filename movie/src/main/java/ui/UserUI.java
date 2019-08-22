@@ -241,7 +241,7 @@ public class UserUI {
 		if (delYN.equalsIgnoreCase("Y")) {
 			int no = userDAO.deleteUser(vo.getUserNo());
 			if (no == 0) {
-				session.rollback();
+				session.rollback(); 
 				System.out.println("============================");
 				System.out.println("회원 삭제 실패하였습니다. ");
 				System.out.println("============================");
