@@ -29,6 +29,10 @@ public class TheaterUI {
 		TheaterVO vo = new TheaterVO();
 
 		String theaterName = CommUtil.getStr("상영관 이름을 입력하세요 : ");
+		while (theaterName.indexOf("관") == -1) {
+			System.out.println("잘못된 상영관 이름입니다. 다시 입력해주세요");
+			theaterName = CommUtil.getStr("상영관 이름을 입력하세요 : ");
+		}
 		int seatRow = CommUtil.getInt("상영관의 행을 입력하세요 : ");
 		int seatCol = CommUtil.getInt("상영관의 열을 입력하세요 : ");
 		vo.setTheaterName(theaterName);
@@ -98,6 +102,10 @@ public class TheaterUI {
 		}
 
 		String theaterName = CommUtil.getStr("상영관의 새로운 이름을 입력하세요 : ");
+		while (theaterName.indexOf("관") == -1) {
+			System.out.println("잘못된 상영관 이름입니다. 다시 입력해주세요");
+			theaterName = CommUtil.getStr("새로운 상영관 이름을 입력하세요 : ");
+		}
 		int seatRow = CommUtil.getInt("상영관의 행을 입력하세요 : ");
 		int seatCol = CommUtil.getInt("상영관의 열을 입력하세요 : ");
 		vo.setTheaterName(theaterName);

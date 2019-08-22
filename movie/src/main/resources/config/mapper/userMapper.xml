@@ -19,6 +19,7 @@
 	  from tb_user t
 	 inner join tb_grade g
 	    on t.reserv_cnt between g.grade_min_reserv and g.grade_max_reserv
+	 where user_no != 1   
 	 order by user_no desc
 </select>
 
