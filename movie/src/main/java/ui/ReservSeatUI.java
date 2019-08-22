@@ -148,10 +148,15 @@ public class ReservSeatUI {
 				System.out.printf("선택하신  %s%d좌석이 예매 되었습니다.\n ", CommUtil.getReservRow(iocharReservRow),
 						CommUtil.getReservCol(ioReservCol));
 				System.out.println("예매 내역 이메일로 전송중......");
-				new SendEmail(userVO.getUserEmail(), "안녕하세요 고객님. 영화 예매내역 입니다.",
-						String.format("예매 좌석 정보 : 영화 제목 : %s, 영화 시간 : %s, 영화관 : %s, 좌석 : %s", reVO.getMovieTitle(),
-								reVO.getMovieTime(), reVO.getTheaterName(),
-								CommUtil.getReservRow(iocharReservRow) + "" + CommUtil.getReservCol(ioReservCol)));
+				try {
+					new SendEmail(userVO.getUserEmail(), "안녕하세요 고객님. 영화 예매내역 입니다.",
+							String.format("예매 좌석 정보 : 영화 제목 : %s, 영화 시간 : %s, 영화관 : %s, 좌석 : %s", reVO.getMovieTitle(),
+									reVO.getMovieTime(), reVO.getTheaterName(),
+									CommUtil.getReservRow(iocharReservRow) + "" + CommUtil.getReservCol(ioReservCol)));
+				} catch (Exception e) {
+					System.out.println("예매 내역 이메일 전송이 실패하였습니다.");
+					return;
+				}
 				System.out.println("예매 내역 이메일 전송이 완료되었습니다.");
 				return;
 			}

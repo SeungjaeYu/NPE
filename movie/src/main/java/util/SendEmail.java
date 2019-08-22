@@ -14,7 +14,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class SendEmail {
-	public SendEmail(String emailAddress, String emailTitle, String emailContent) {
+	public SendEmail(String emailAddress, String emailTitle, String emailContent) throws Exception {
 		Properties props = new Properties();
 		props.setProperty("mail.transport.protocol", "smtp");
 		props.setProperty("mail.host", "smtp.gmail.com");
@@ -31,19 +31,17 @@ public class SendEmail {
 		};
 		Session session = Session.getDefaultInstance(props, auth);
 		MimeMessage message = new MimeMessage(session);
-		try {
-			message.setSender(new InternetAddress("moviereservationteam7@gmail.com"));
-			message.setSubject(emailTitle);
-			message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
-			Multipart mp = new MimeMultipart();
-			MimeBodyPart mbp1 = new MimeBodyPart();
-			mbp1.setText(emailContent);
-			mp.addBodyPart(mbp1);
-			message.setContent(mp);
-			Transport.send(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-		}
+		
+		message.setSender(new InternetAddress("moviereservationteam7@gmail.com"));
+		message.setSubject(emailTitle);
+		message.setRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
+		Multipart mp = new MimeMultipart();
+		MimeBodyPart mbp1 = new MimeBodyPart();
+		mbp1.setText(emailContent);
+		mp.addBodyPart(mbp1);
+		message.setContent(mp);
+		Transport.send(message);
+		
+
 	}
 }

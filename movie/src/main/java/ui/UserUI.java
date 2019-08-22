@@ -39,7 +39,12 @@ public class UserUI {
 		String userEmail = CommUtil.getStr("이메일 주소를 입력하세요 : ");
 		String randomNum = CommUtil.randomKey();
 		System.out.println("인증번호를 메일로 발송중입니다....");
-		new SendEmail(userEmail, "인증번호 입니다.", randomNum);
+		try {
+			new SendEmail(userEmail, "인증번호 입니다.", randomNum);
+		} catch (Exception e) {
+			System.out.println("이메일 전송이 실패하였습니다. 올바른 형식의 이메일 주소를 입력하세요.");
+			return;
+		}
 		System.out.println("인증번호를 메일로 발송 완료하였습니다.");
 		String emailKey = CommUtil.getStr("메일에서 확인한 인증번호를 입력하세요 : ");
 		
