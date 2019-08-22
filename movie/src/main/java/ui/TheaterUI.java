@@ -122,7 +122,6 @@ public class TheaterUI {
 		String theaterName = CommUtil.getStr("삭제할 상영관이름을 입력하세요 : ");
 		try {
 			int result = theaterDAO.deleteTheater(theaterName);
-			// System.out.println("result : " + result);
 			if (result == 1) {
 				session.commit();
 				System.out.println();
@@ -166,7 +165,6 @@ public class TheaterUI {
 				modifyTheater();
 				break;
 			case 0:
-				// back();
 				break outer2;
 			default:
 				System.out.println("잘못된 메뉴번호 입니다.");
@@ -174,8 +172,5 @@ public class TheaterUI {
 			}
 		}
 	}
-	/* 기능 테스트 메인
-	 * public static void main(String[] args) { new TheaterUI().theater(); }
-	 */
 
 }

@@ -31,10 +31,10 @@ public class InningUI {
 				List<InningVO> list = inningDAO.selectInning(movieNo);
 				int no = 1;
 				System.out.println("------------------------------");
-				System.out.println("상영시간\t잔여  좌석수\t상영관");
+				System.out.println("상영시간\t잔여좌석수\t상영관");
 				System.out.println("------------------------------");
 				if (list.isEmpty()) {
-					System.out.println("상영중인 정보가 없습니다.");
+					System.out.println("상영 정보가 없습니다.");
 					return;
 				}
 				for (InningVO inning : list) {
