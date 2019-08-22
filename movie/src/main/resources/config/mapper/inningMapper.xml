@@ -20,7 +20,7 @@
 			   th.seat_row
 		  from tb_inning i, tb_theater th
 		 where i.theater_no = th.theater_no and movie_no = #{movieNo}
-		 order by i.movie_inning	   
+		 order by i.movie_time	   
 	</select>
 	
 	<select id="selectOneInning" parameterType="int" 

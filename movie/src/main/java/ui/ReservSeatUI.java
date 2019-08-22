@@ -53,10 +53,6 @@ public class ReservSeatUI {
 
 			// 회차 당 영화 예매된 자리 조회
 			List<ReservationVO> list = reservSeatDAO.reservSeatList(inningNo);
-			if (list.isEmpty()) {
-				System.out.println("자리 조회가 불가능한 상태입니다.");
-				return;
-			}
 			for (ReservationVO reservVO : list) {
 				seatMovie[reservVO.getReservRow()][reservVO.getReservCol()] = 1;
 			}
@@ -89,7 +85,7 @@ public class ReservSeatUI {
 			if (userNo == 0) {
 				System.out.println("비회원은 조회만 가능합니다.");
 				continue reservOuter;
-			} else if (userNo == 25) {
+			} else if (userNo == 1) {
 				System.out.println("관리자는 예매를 하실 수 없습니다.");
 				continue reservOuter;
 			} else if (seatTotSize.getSeatCol() * seatTotSize.getSeatRow() == list.size()) {

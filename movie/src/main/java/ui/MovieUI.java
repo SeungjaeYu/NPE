@@ -34,14 +34,14 @@ public class MovieUI {
 			int no = list.size();
 			System.out.println("현재 상영중인 영화는 " + list.size() + "개 입니다. ");
 			System.out.println("------------------------------");
-			System.out.println("제목\t배우\t감독\t등급");
+			System.out.println("   제목\t\t감독\t\t배우\t등급");
 			System.out.println("------------------------------");
 			if (list.isEmpty()) {
 				System.out.println("상영중인 영화가 없습니다.");
 				return;
 			}
 			for (MovieVO movie : list) {
-				System.out.printf("%3d\t%-30s%-15s%-5s%-10s", no--, movie.getMovieTitle(), movie.getMovieDirector(),
+				System.out.printf("%3d %-10s%-10s%-10s%-10s", no--, movie.getMovieTitle(), movie.getMovieDirector(),
 						movie.getMovieActor(), movie.getViewingGrade());
 				System.out.println();
 			}

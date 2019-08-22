@@ -34,7 +34,7 @@ public class CommUtil {
 	 * @return
 	 */
 	public static String getDate() {
-		return getDate(DATE_FORMAT);
+		return getDate(DATE_FORMAT_TIME);
 	}
 
 	/**

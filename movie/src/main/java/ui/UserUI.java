@@ -154,7 +154,7 @@ public class UserUI {
 	public void selectUserList() {
 		List<UserVO> userList = userDAO.selectAdminList();
 		System.out.println("∴회원정보");
-		System.out.println("아이디\t\t\t이메일\t가입일\t\t등급");
+		System.out.println("아이디\t\t이메일\t\t가입일\t\t등급");
 		System.out.println("----------------------------------------");
 		if (userList.isEmpty()) {
 			System.out.println("아직 가입한 회원이 없습니다. ");

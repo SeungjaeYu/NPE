@@ -68,7 +68,7 @@ public class ReservationUI {
 			List<ReservationVO> reservList = reservationDAO.reservList(userNo);
 			System.out.println("예매 정보");
 			System.out.println("----------------------------------------");
-			System.out.printf("%2s%20s%16s%8s%8s\n"
+			System.out.printf("%2s%18s%13s%6s%5s\n"
 					,"번호", "영화제목", "상영시간", "상영관", "좌석");
 			System.out.println("----------------------------------------");
 			int reservCnt = reservList.size();
@@ -108,6 +108,7 @@ public class ReservationUI {
 			System.out.println("잘못된 값을 입력하셨습니다.");
 			reservRemove = CommUtil.getInt("취소할 예매 번호를 입력하세요 : ");
 		}
+		if (reservRemove == 0) return;
 		ReservationVO vo = reservList.get(reservList.size() - reservRemove );
 		
 		

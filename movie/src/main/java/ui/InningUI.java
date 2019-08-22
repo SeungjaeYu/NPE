@@ -31,7 +31,7 @@ public class InningUI {
 				List<InningVO> list = inningDAO.selectInning(movieNo);
 				int no = 1;
 				System.out.println("------------------------------");
-				System.out.println("상영시간\t잔여좌석수\t상영관");
+				System.out.println("  상영시간\t잔여좌석수\t상영관");
 				System.out.println("------------------------------");
 				if (list.isEmpty()) {
 					System.out.println("상영 정보가 없습니다.");
@@ -41,7 +41,7 @@ public class InningUI {
 					int totSeatSize = inning.getSeatRow() * inning.getSeatCol();
 					int reservSize = reservationDAO.countReserv(inning.getInningNo());
 					System.out.printf(
-							"%-2d. %-10s%5s%5s",
+							"%d. %-10s%10s%10s",
 							no++,
 							inning.getMovieTime(),
 							(totSeatSize - reservSize) + "석",
@@ -53,12 +53,12 @@ public class InningUI {
 				System.out.println("0 . 이전");
 				System.out.println("------------------------------");
 				
-				int inningNo = CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
+				int inningNo = CommUtil.getInt("상세 조회할 회차를 선택하세요 : ");
 				
 				if (inningNo == 0) break inningOuter;
 				while (inningNo > list.size() || inningNo < 0) {
 					System.out.println("잘못 된 메뉴번호 입니다. 다시입력하세요. ");
-					inningNo = CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
+					inningNo = CommUtil.getInt("상세 조회할 회차를 선택하세요 : ");
 				}
 				InningVO vo = list.get(inningNo - 1);
 				reservSeatUI.reservSeatList(vo.getInningNo(), userNo);

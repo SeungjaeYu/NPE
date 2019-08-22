@@ -25,8 +25,6 @@ public class MainUI {
 					
 			case 2: if (userUI.loginChk && userUI.adminChk) userUI.selectUserList(); else if (!userUI.loginChk) userUI.join();  else userUI.selectUser();	break;
 			
-			//case 3: if (!loginChk) findUser();    /*else writeEMail();*/     break;
-			
 			case 3 :if (userUI.loginChk && userUI.adminChk)	movieUIAdmin.movie(); else movieUI.selectMovieList( userUI.vo != null ? userUI.vo.getUserNo() : 0 ); break;
 			
 			case 4 : if (userUI.loginChk && userUI.adminChk) theaterUI.theater(); else if (userUI.loginChk) reservationUI.service(userUI.vo.getUserNo()); else userUI.findUser(); break;
@@ -80,12 +78,5 @@ public class MainUI {
 		System.out.println("영화예매 시스템이 종료되었습니다.");
 		System.exit(0);
 	}
-	
-	
-	
-	/*
-	private void findUser() {
-		user.findUser();
-	}
-	*/
+
 }
