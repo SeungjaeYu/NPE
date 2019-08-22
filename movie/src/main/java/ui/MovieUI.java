@@ -28,7 +28,7 @@ public class MovieUI {
 	public void selectMovieList(int userNo) {
 
 		movieOuter: while (true) {
-
+			CommUtil.clear();
 			List<MovieVO> list = movieDAO.selectMovie();
 
 			int no = list.size();
@@ -38,6 +38,7 @@ public class MovieUI {
 			System.out.println("------------------------------");
 			if (list.isEmpty()) {
 				System.out.println("상영중인 영화가 없습니다.");
+				CommUtil.clear(2);
 				return;
 			}
 			for (MovieVO movie : list) {
@@ -50,18 +51,20 @@ public class MovieUI {
 			System.out.println("------------------------------");
 
 			int userNum = CommUtil.getInt("상세 조회할 영화 번호를 입력하세요. : ");
-
-			if (userNum == 0)
+			
+			if (userNum == 0) {
+				CommUtil.clear();
 				break movieOuter;
+			}
 
 			while (userNum > list.size() || userNum < 0) {
 				System.out.println("잘못 된 번호 입니다. 다시입력하세요. ");
 				userNum = CommUtil.getInt("상세 조회할 영화 번호를 입력하세요. : ");
 			}
 			MovieVO vo = list.get(list.size() - userNum);
-
+			CommUtil.clear();
 			inningUI.selectInningList(vo.getMovieNo(), userNo);
-
+			
 		}
 
 	}

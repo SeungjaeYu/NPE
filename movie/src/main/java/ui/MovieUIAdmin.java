@@ -30,6 +30,7 @@ public class MovieUIAdmin {
 
 	public void movie() {
 		outer: while (true) {
+			CommUtil.clear();
 			switch (menu()) {
 			case 1:
 				registerMovie();
@@ -38,6 +39,7 @@ public class MovieUIAdmin {
 				modifyMovie();
 				break;
 			case 0:
+				CommUtil.clear();
 				break outer;
 			default:
 				System.out.println("잘못된 번호 입니다.");
@@ -60,7 +62,7 @@ public class MovieUIAdmin {
 	 * 영화 등록
 	 */
 	public void registerMovie() {
-
+		CommUtil.clear();
 		String movieTitle = CommUtil.getStr("영화 제목을 입력하세요 :");
 		String movieDirector = CommUtil.getStr("영화 감독을 입력하세요 :");
 		String movieActor = CommUtil.getStr("배우를 입력하세요 :");
@@ -78,6 +80,7 @@ public class MovieUIAdmin {
 			session.rollback();
 			System.out.println();
 			System.out.println("중복된 이름의 영화가 있습니다.");
+			CommUtil.clear(2);
 			return;
 		}
 		int movieInning = CommUtil.getInt("영화의 회차수를 입력하세요 :");
@@ -135,11 +138,12 @@ public class MovieUIAdmin {
 		if (movieInning + 1 != result) {
 			session.rollback();
 			System.out.println("영화 등록에 실패했습니다. 영화 정보를 확인해주세요.");
+			CommUtil.clear(2);
 			return;
 		}
 		session.commit();
 		System.out.println("영화가 등록되었습니다.");
-
+		CommUtil.clear(2);
 	}
 
 	/**
@@ -156,6 +160,7 @@ public class MovieUIAdmin {
 
 	public void modifyMovie() {
 		outer2: while (true) {
+			CommUtil.clear();
 			List<MovieVO> list = movieDAO.selectMovie();
 			int no = list.size();
 			System.out.println("현재 상영중인 영화는 " + list.size() + "개 입니다. ");
@@ -164,6 +169,7 @@ public class MovieUIAdmin {
 			System.out.println("------------------------------");
 			if (list.isEmpty()) {
 				System.out.println("상영중인 영화가 없습니다.");
+				CommUtil.clear(2);
 				return;
 			}
 			for (MovieVO movie : list) {
@@ -180,6 +186,7 @@ public class MovieUIAdmin {
 				deleteMovie();
 				break;
 			case 0:
+				CommUtil.clear();
 				break outer2;
 			default:
 				System.out.println("잘못된 메뉴번호 입니다.");
@@ -193,10 +200,12 @@ public class MovieUIAdmin {
 	 * 영화 수정
 	 */
 	public void modiMovie() {
+		CommUtil.clear();
 		String originalTitle = CommUtil.getStr("수정할 영화의 제목을 입력하세요 : ");
 		MovieVO vo = movieDAO.selectOneMovie(originalTitle);
 		if (vo == null) {
 			System.out.println("해당하는 영화가 존재하지 않습니다.");
+			CommUtil.clear(2);
 			return;
 		}
 
@@ -215,11 +224,13 @@ public class MovieUIAdmin {
 			session.rollback();
 			System.out.println();
 			System.out.println("중복된 이름의 영화가 있습니다.");
+			CommUtil.clear(2);
 			return;
 		}
 			
 		session.commit();
 		System.out.println("영화 수정이 완료되었습니다.");
+		CommUtil.clear(2);
 
 	}
 
@@ -227,11 +238,13 @@ public class MovieUIAdmin {
 	 * 영화 삭제
 	 */
 	public void deleteMovie() {
+		CommUtil.clear();
 		String movieTitle = CommUtil.getStr("삭제할 영화제목을 입력하세요 : ");
 		try {
 			MovieVO vo = movieDAO.selectOneMovie(movieTitle);
 			if (vo == null) {
 				System.out.println("해당하는 영화가 존재하지 않습니다.");
+				CommUtil.clear(2);
 				return;
 			}
 			int result = inningDAO.deleteInnning(vo.getMovieNo());
@@ -240,15 +253,17 @@ public class MovieUIAdmin {
 				session.commit();
 				System.out.println();
 				System.out.println("영화 삭제가 완료되었습니다.");
+				CommUtil.clear(2);
 				return;
 			}
 			session.rollback();
 			System.out.println("해당 영화가 존재하지 않습니다.");
-
+			CommUtil.clear(2);
 		} catch (Exception e) {
 			if (e.getMessage().contains("child record found")) {
 				session.rollback();
 				System.out.println("예매정보가 있는 영화입니다. ");
+				CommUtil.clear(2);
 				return;
 			}
 		}

@@ -16,6 +16,7 @@ public class MainUI {
 	MovieUI movieUI = new MovieUI();
 	MovieUIAdmin movieUIAdmin = new MovieUIAdmin();
 	public void service() {
+		CommUtil.clear();
 		System.out.println("영화예매 프로그램");
 		while (true) {
 			switch (menu()) {

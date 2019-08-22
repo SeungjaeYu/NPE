@@ -240,7 +240,7 @@ public class CommUtil {
 	
 	public static void clear(int delay) {
 		try {
-			Thread.sleep(delay);
+			Thread.sleep(delay * 1000);
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (Exception e) {
 			

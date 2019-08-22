@@ -33,6 +33,7 @@ public class ReservationUI {
 		
 		reservOuter :
 		while(true) {
+			CommUtil.clear();
 			selectReservList(userNo);
 			switch (menu()) {
 			case 1:
@@ -64,7 +65,7 @@ public class ReservationUI {
 	 * @param userNo
 	 */
 	public void selectReservList(int userNo) {
-		
+		CommUtil.clear();
 			List<ReservationVO> reservList = reservationDAO.reservList(userNo);
 			System.out.println("예매 정보");
 			System.out.println("----------------------------------------");
@@ -75,6 +76,7 @@ public class ReservationUI {
 			
 			if (reservList.isEmpty()) {
 				System.out.println("예매 내역이 없습니다.");
+				
 			} else {
 				for (ReservationVO reservVO : reservList) {
 					System.out.printf("%2s%20s%16s%8s%8s\n", reservCnt--, reservVO.getMovieTitle(),
@@ -86,6 +88,7 @@ public class ReservationUI {
 			}
 			
 			System.out.println("----------------------------------------");
+		
 	
 	}
 	
@@ -96,9 +99,11 @@ public class ReservationUI {
 	 * @param userNo
 	 */
 	public void deleteReserv(int userNo) {
+		CommUtil.clear();
 		List<ReservationVO> reservList = reservationDAO.reservList(userNo);
 		if (reservList.isEmpty()) {
 			System.out.println("예매 내역이 없습니다.");
+			CommUtil.clear(2);
 			return;
 		}
 		
@@ -108,7 +113,11 @@ public class ReservationUI {
 			System.out.println("잘못된 값을 입력하셨습니다.");
 			reservRemove = CommUtil.getInt("취소할 예매 번호를 입력하세요 : ");
 		}
-		if (reservRemove == 0) return;
+		if (reservRemove == 0) {
+			
+			CommUtil.clear();
+			return;
+		}
 		ReservationVO vo = reservList.get(reservList.size() - reservRemove );
 		
 		
@@ -126,12 +135,14 @@ public class ReservationUI {
 						, vo.getMovieTitle()
 						, CommUtil.getReservRow(vo.getReservRow()) + "" + CommUtil.getReservCol(vo.getReservCol()));
 				System.out.println("============================");
+				CommUtil.clear(2);
 				 return;
 			}
 		}
 		session.rollback();
 		System.out.println("예매가 취소되지 않았습니다.");
 		System.out.println("============================");
+		CommUtil.clear(2);
 		
 	}
 

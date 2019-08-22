@@ -27,7 +27,7 @@ public class InningUI {
 	public void selectInningList(int movieNo, int userNo) {
 		inningOuter : 
 			while(true) {
-				
+				CommUtil.clear();
 				List<InningVO> list = inningDAO.selectInning(movieNo);
 				int no = 1;
 				System.out.println("------------------------------");
@@ -35,6 +35,7 @@ public class InningUI {
 				System.out.println("------------------------------");
 				if (list.isEmpty()) {
 					System.out.println("상영 정보가 없습니다.");
+					CommUtil.clear(2);
 					return;
 				}
 				for (InningVO inning : list) {

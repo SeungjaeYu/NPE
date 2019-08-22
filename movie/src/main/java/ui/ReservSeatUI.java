@@ -39,13 +39,13 @@ public class ReservSeatUI {
 	 */
 
 	public void reservSeatList(int inningNo, int userNo) {
-
+		
 		reservOuter: while (true) {
-
 			// 전체 자리수 가져오기
 			InningVO seatTotSize = inningDAO.selectOneInning(inningNo);
 			if (seatTotSize == null) {
 				System.out.println("잘못된 값을 입력하셨습니다.");
+				CommUtil.clear(2);
 				return;
 			}
 
@@ -80,8 +80,10 @@ public class ReservSeatUI {
 			System.out.println("0. 이전메뉴");
 			System.out.println("-------------------------------");
 			int chkReserv = CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
-			if (chkReserv == 0)
+			if (chkReserv == 0) {
+				CommUtil.clear();
 				break reservOuter;
+			}
 			if (userNo == 0) {
 				System.out.println("비회원은 조회만 가능합니다.");
 				continue reservOuter;
@@ -90,6 +92,7 @@ public class ReservSeatUI {
 				continue reservOuter;
 			} else if (seatTotSize.getSeatCol() * seatTotSize.getSeatRow() == list.size()) {
 				System.out.println("매진된 상영관입니다. ");
+				CommUtil.clear(2);
 				break reservOuter;
 			}
 
@@ -151,19 +154,18 @@ public class ReservSeatUI {
 									CommUtil.getReservRow(iocharReservRow) + "" + CommUtil.getReservCol(ioReservCol)));
 				} catch (Exception e) {
 					System.out.println("예매 내역 이메일 전송이 실패하였습니다.");
+					CommUtil.clear(2);
 					return;
 				}
 				System.out.println("예매 내역 이메일 전송이 완료되었습니다.");
+				CommUtil.clear(2);
 				return;
 			}
 			session.rollback();
 			System.out.printf("선택하신  %s%d좌석 예매를 실패 하였습니다.\n ", CommUtil.getReservRow(iocharReservRow),
 					CommUtil.getReservCol(ioReservCol));
+			CommUtil.clear(2);
 
-//					System.out.printf("선택하신  %s%d좌석이 예매 %s\n "
-//							, CommUtil.getReservRow(iocharReservRow),
-//							CommUtil.getReservCol(ioReservCol),
-//							result == 3 ? "되었습니다." : "실패하였습니다.");
 		}
 
 	}

@@ -33,6 +33,7 @@ public class UserUI {
 	 * 회원가입
 	 */
 	public void join() {
+		CommUtil.clear();
 		UserVO userVO = new UserVO();
 		String userId = CommUtil.getStr("아이디를 입력하세요 : ");
 		String password = CommUtil.getStr("비밀번호를 입력하세요 : ");
@@ -43,12 +44,16 @@ public class UserUI {
 			new SendEmail(userEmail, "회원가입 인증번호 입니다.", randomNum);
 		} catch (Exception e) {
 			System.out.println("이메일 전송이 실패하였습니다. 올바른 형식의 이메일 주소를 입력하세요.");
+			CommUtil.clear(2);
 			return;
 		}
 		System.out.println("인증번호를 메일로 발송 완료하였습니다.");
 		
 		String failMsg = "회원 가입이 실패하였습니다.";
-		if (!CommUtil.emailChk(randomNum, failMsg)) return;
+		if (!CommUtil.emailChk(randomNum, failMsg)) {
+			CommUtil.clear(2);
+			return;
+		}
 		System.out.println("인증이 완료되었습니다. ");
 		
 		
@@ -61,11 +66,13 @@ public class UserUI {
 			session.rollback();
 			System.out.println("============================");
 			System.out.println("중복된 아이디의 회원이 있습니다. ");
+			CommUtil.clear(2);
 			return;
 		}
 		session.commit();
 		System.out.println("============================");
 		System.out.println("회원가입이 완료되었습니다.");
+		CommUtil.clear(2);
 	}
 	
 	
@@ -76,7 +83,7 @@ public class UserUI {
 	 * 비밀번호 찾기/ 변경
 	 */
 	public void findUser() {
-		
+		CommUtil.clear();
 		List<UserVO> list = userDAO.selectAdminList();
 		System.out.println("비밀번호 찾기 메뉴를 선택하셨습니다.\n\n\n");
 		
@@ -92,11 +99,15 @@ public class UserUI {
 					new SendEmail(vo.getUserEmail(), "비밀번호 변경 인증번호 입니다.", randomNum);
 				} catch (Exception e) {
 					System.out.println("이메일 전송이 실패하였습니다. 올바른 형식의 이메일 주소를 입력하세요.");
+					CommUtil.clear(2);
 					return;
 				}
 				System.out.println("인증번호를 메일로 발송 완료하였습니다.");
 				String failMsg = "비밀번호 찾기가 실패하였습니다.";
-				if (!CommUtil.emailChk(randomNum, failMsg)) return;
+				if (!CommUtil.emailChk(randomNum, failMsg)) {
+					CommUtil.clear(1);
+					return;
+				}
 				System.out.println("인증이 완료되었습니다. ");
 				String password = CommUtil.getStr("수정할 비밀번호를 입력하세요 : ");
 				
@@ -107,19 +118,21 @@ public class UserUI {
 					session.rollback();
 					System.out.println("============================");
 					System.out.println("비밀번호 변경이 실패하였습니다.");
+					CommUtil.clear(2);
 					return;
 				}
 				session.commit();
 				System.out.println("============================");
 				System.out.println("비밀번호 변경이 완료되었습니다.");
-				
+				CommUtil.clear(2);
 			
 			return;
+			
 			}	
 		}
 		
 		System.out.println("비밀번호 찾기에 실패하셨습니다.");
-	
+		CommUtil.clear(2);
 	}
 	
 	
@@ -138,6 +151,7 @@ public class UserUI {
 		if (userVO == null) {
 			System.out.println("∴아이디나 비밀번호가 바르게 입력되지 않았습니다.");
 			System.out.println("다시 로그인해주세요.");
+			CommUtil.clear(2);
 			return;
 		}
 		if (userVO.getUserId().equals("admin")) {
@@ -146,7 +160,7 @@ public class UserUI {
 		System.out.println("환영합니다. " + userVO.getUserId() + "님\n" + CommUtil.getDate() + "에 로그인 하셨습니다.");
 		loginChk = true;
 		vo = userVO;
-		CommUtil.clear(1000);
+		CommUtil.clear(2);
 	}
 	
 	
@@ -171,6 +185,7 @@ public class UserUI {
 		}
 		System.out.println("----------------------------------------");
 		
+		CommUtil.clear(3);
 	} 
 	
 	 
@@ -196,7 +211,7 @@ public class UserUI {
 		switch (userChkNum) {
 		case 1 : updateUser();	break;
 		case 2 : deleteUser();	break;
-		case 0 : 						break;
+		case 0 : CommUtil.clear(); break;
 		 default : break;
 		}
 		
@@ -209,7 +224,7 @@ public class UserUI {
 	 * 
 	 */
 	public void updateUser() {
-		
+		CommUtil.clear();
 		String userEmail = CommUtil.getStr("수정할 이메일 주소를 입력하세요 : ");
 		String password = CommUtil.getStr("수정할 비밀번호를 입력하세요 : ");
 		
@@ -222,11 +237,13 @@ public class UserUI {
 			session.rollback();
 			System.out.println("============================");
 			System.out.println("회원정보 수정 실패하였습니다.");
+			CommUtil.clear(2);
 			return;
 		}
 		session.commit();
 		System.out.println("============================");
 		System.out.println("회원정보 수정 완료되었습니다.");
+		CommUtil.clear(2);
 	}
 	
 	/**
@@ -247,6 +264,7 @@ public class UserUI {
 				System.out.println("============================");
 				System.out.println("회원 삭제 실패하였습니다. ");
 				System.out.println("============================");
+				CommUtil.clear(2);
 				return;
 			}
 				session.commit();
@@ -254,10 +272,12 @@ public class UserUI {
 				loginChk = false;
 				System.out.println("회원 삭제 완료되었습니다.");
 				System.out.println("============================");
+				CommUtil.clear(2);
 				return;
 		}
 		System.out.println("회원 삭제 취소되었습니다.");
 		System.out.println("============================");
+		CommUtil.clear(2);
 	}
 	
 
@@ -271,6 +291,7 @@ public class UserUI {
 		vo = null;
 		loginChk = false;
 		adminChk = false;
+		CommUtil.clear(2);
 	}
 	
 	
