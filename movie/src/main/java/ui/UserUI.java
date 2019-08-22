@@ -129,6 +129,7 @@ public class UserUI {
 	 *  유저 로그인
 	 */
 	public void loginUser() {
+		CommUtil.clear();
 		System.out.println("영화예매 계정으로 로그인.\n\n\n");
 		UserVO user = new UserVO();
 		user.setUserId( CommUtil.getStr("아이디를 입력해주세요 : "));
@@ -145,6 +146,7 @@ public class UserUI {
 		System.out.println("환영합니다. " + userVO.getUserId() + "님\n" + CommUtil.getDate() + "에 로그인 하셨습니다.");
 		loginChk = true;
 		vo = userVO;
+		CommUtil.clear(1000);
 	}
 	
 	

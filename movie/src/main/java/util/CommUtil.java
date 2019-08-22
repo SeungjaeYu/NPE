@@ -233,4 +233,17 @@ public class CommUtil {
 		}
 		return false;
 	}
+	
+	public static void clear() {
+		clear(0);
+	}
+	
+	public static void clear(int delay) {
+		try {
+			Thread.sleep(delay);
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		} catch (Exception e) {
+			
+		}
+	}
 }
