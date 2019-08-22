@@ -40,31 +40,16 @@ public class UserUI {
 		String randomNum = CommUtil.randomKey();
 		System.out.println("인증번호를 메일로 발송중입니다....");
 		try {
-			new SendEmail(userEmail, "인증번호 입니다.", randomNum);
+			new SendEmail(userEmail, "회원가입 인증번호 입니다.", randomNum);
 		} catch (Exception e) {
 			System.out.println("이메일 전송이 실패하였습니다. 올바른 형식의 이메일 주소를 입력하세요.");
 			return;
 		}
 		System.out.println("인증번호를 메일로 발송 완료하였습니다.");
-		String emailKey = CommUtil.getStr("메일에서 확인한 인증번호를 입력하세요 : ");
 		
-		int keyChkIdx = 4;
-		
-		for (int i = 1; i <= keyChkIdx ; i++) {
-			if (i == keyChkIdx) {
-				System.out.println("회원가입이 실패하였습니다.");
-				return;
-			}
-			if (!randomNum.equals(emailKey)) {
-				System.out.println(i + "회 입력 오류입니다.(" + i + "/3)");
-				if (keyChkIdx > i + 1) {
-					System.out.println("인증번호가 같지 않습니다. 다시 입력해주세요.");
-					emailKey = CommUtil.getStr("메일에서 확인한 인증번호를 입력하세요 : ");
-				}
-				continue;
-			} else break;
-		}
-		
+		String failMsg = "회원 가입이 실패하였습니다.";
+		if (!CommUtil.emailChk(randomNum, failMsg)) return;
+		System.out.println("인증이 완료되었습니다. ");
 		
 		
 		userVO.setUserId(userId);
@@ -88,7 +73,7 @@ public class UserUI {
 	
 	
 	/**
-	 * 비밀번호 찾기
+	 * 비밀번호 찾기/ 변경
 	 */
 	public void findUser() {
 		
@@ -96,17 +81,39 @@ public class UserUI {
 		System.out.println("비밀번호 찾기 메뉴를 선택하셨습니다.\n\n\n");
 		
 		
-		String findId = CommUtil.getStr("비밀번호를 찾을 아이디를 입력해주세요. :");
-		String findEmail = CommUtil.getStr("이메일 주소를 입력해주세요. : ");
+		String findId = CommUtil.getStr("비밀번호를 찾을 아이디를 입력해주세요 : ");
+		String findEmail = CommUtil.getStr("이메일 주소를 입력해주세요 : ");
 		for (UserVO vo : list) {
 			if (vo.getUserId().equals(findId) && vo.getUserEmail().equals(findEmail)) {
 			
+				System.out.println("인증번호를 메일로 발송중입니다....");
+				String randomNum = CommUtil.randomKeyByPassword();
+				try {
+					new SendEmail(vo.getUserEmail(), "비밀번호 변경 인증번호 입니다.", randomNum);
+				} catch (Exception e) {
+					System.out.println("이메일 전송이 실패하였습니다. 올바른 형식의 이메일 주소를 입력하세요.");
+					return;
+				}
+				System.out.println("인증번호를 메일로 발송 완료하였습니다.");
+				String failMsg = "비밀번호 찾기가 실패하였습니다.";
+				if (!CommUtil.emailChk(randomNum, failMsg)) return;
+				System.out.println("인증이 완료되었습니다. ");
+				String password = CommUtil.getStr("수정할 비밀번호를 입력하세요 : ");
+				
+				vo.setPassword(sha256.LockPassword(password));
+				int no = userDAO.updateUserByPassword(vo);
+				
+				if (no == 0) {
+					session.rollback();
+					System.out.println("============================");
+					System.out.println("비밀번호 변경이 실패하였습니다.");
+					return;
+				}
+				session.commit();
+				System.out.println("============================");
+				System.out.println("비밀번호 변경이 완료되었습니다.");
+				
 			
-			System.out.println("∴비밀번호 찾기에 성공하셨습니다.∴");
-			System.out.println("--------------------");
-			System.out.println("비밀번호 : " + vo.getPassword() + "입니다.");
-			System.out.println("--------------------");
-			System.out.println("메인메뉴로 돌아갑니다");
 			return;
 			}	
 		}

@@ -26,6 +26,8 @@ public class CommUtil {
 	private static final String DATE_FORMAT = "yyyy-MM-dd";
 	private static final String DATE_FORMAT_TIME = "yyyy-MM-dd HH:mm:ss";
 
+	
+	
 	/**
 	 * 년/월/일 시:분:초를 구하여 문자열로 반환한다.
 	 * 
@@ -157,11 +159,73 @@ public class CommUtil {
 
 	
 	/**
-	 *  이메일 인증 코드를 위한 난수 생성
+	 *  회원가입 이메일 인증 코드를 위한 난수 생성기(숫자만 6자리)
 	 * 
 	 * @return
 	 */
 	public static String randomKey() {
 		return String.valueOf(new Random().nextInt(900000) + 100000);
+	}
+	
+	
+	
+	/**
+	 *  비밀번호 찾기를 위한 난수 생성기(문자 + 숫자 조합 20개)
+	 * 
+	 * @return
+	 */
+	public static String randomKeyByPassword() {
+		StringBuffer temp = new StringBuffer();
+		Random rnd = new Random();
+		for (int i = 0; i < 20; i++) {
+		    int rIndex = rnd.nextInt(3);
+		    switch (rIndex) {
+		    case 0:
+		        // a-z
+		        temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+		        break;
+		    case 1:
+		        // A-Z
+		        temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+		        break;
+		    case 2:
+		        // 0-9
+		        temp.append((rnd.nextInt(10)));
+		        break;
+		    }
+		}
+		return temp.toString();
+
+	}
+	
+	
+	/**
+	 *  이메일 전송 코드 체크
+	 * 
+	 * @param randomNum
+	 * @param emailKey
+	 * @param failMsg
+	 * @return
+	 */
+	
+	public static boolean emailChk(String randomNum, String failMsg) {
+		
+		int keyChkIdx = 4;
+		String emailKey = getStr("메일에서 확인한 인증번호를 입력하세요 : ");
+		for (int i = 1; i <= keyChkIdx ; i++) {
+			if (i == keyChkIdx) {
+				System.out.println(failMsg);
+				return false;
+			}
+			if (!randomNum.equals(emailKey)) {
+				System.out.println(i + "회 입력 오류입니다.(" + i + "/3)");
+				if (keyChkIdx > i + 1) {
+					System.out.println("인증번호가 같지 않습니다. 다시 입력해주세요.");
+					emailKey = CommUtil.getStr("메일에서 확인한 인증번호를 입력하세요 : ");
+				}
+				continue;
+			} else return true;
+		}
+		return false;
 	}
 }
