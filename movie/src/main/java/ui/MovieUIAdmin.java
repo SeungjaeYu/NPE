@@ -83,7 +83,7 @@ public class MovieUIAdmin {
 		int movieInning = CommUtil.getInt("영화의 회차수를 입력하세요 :");
 
 		while (movieInning <= 0) {
-			System.out.println("0보다 큰 회차를 입력하셔야 합니다.");
+			System.out.println("0보다 큰 회차를 입력해야 합니다.");
 			movieInning = CommUtil.getInt("영화의 회차수를 입력하세요 :");
 		}
 
@@ -120,8 +120,15 @@ public class MovieUIAdmin {
 			inningVO.setMovieNo(movieVO.getMovieNo());
 			inningVO.setMovieTime(movieTime);
 			inningVO.setTheaterNo(theaterVO.getTheaterNo());
-
-			result += inningDAO.insertInning(inningVO);
+			try {
+				result += inningDAO.insertInning(inningVO);
+				
+			}catch(Exception e) {
+					System.out.println(theaterName+"의"+ movieTime+"에 상영정보가 존재합니다.");
+					i--;
+					continue;
+			}
+			
 
 		}
 		
