@@ -55,8 +55,16 @@
 <!-- 회원 정보 수정 -->
 <update id="updateUser" parameterType="UserVO">
 	update tb_user
-	   set user_email = #{ userEmail } 
-	 where user_no = #{ userNo }
+			   set
+	<if test="userEmail != null">
+	    user_email   =  #{ userEmail },
+	</if>
+	<if test="password != null">
+	   	   password  =	#{password}  
+	</if>
+	 where user_no   =  #{ userNo }
+
+	 
 </update>
 
 <!-- 회원 예매수 증가 -->
@@ -79,10 +87,4 @@
 	 where user_no = #{ userNo }
 </delete>
 
-<!-- 회원 비밀번호 변경 -->
-<update id="updateUserByPassword" parameterType="UserVO">
-	update tb_user
-	   set password = #{password} 
-	 where user_no = #{userNo}
-</update>
 </mapper>

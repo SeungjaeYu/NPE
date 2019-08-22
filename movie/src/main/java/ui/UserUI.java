@@ -101,7 +101,7 @@ public class UserUI {
 				String password = CommUtil.getStr("수정할 비밀번호를 입력하세요 : ");
 				
 				vo.setPassword(sha256.LockPassword(password));
-				int no = userDAO.updateUserByPassword(vo);
+				int no = userDAO.updateUser(vo);
 				
 				if (no == 0) {
 					session.rollback();
@@ -210,9 +210,11 @@ public class UserUI {
 	 */
 	public void updateUser() {
 		
-		String userEmail = CommUtil.getStr("이메일 주소를 입력하세요 : ");
+		String userEmail = CommUtil.getStr("수정할 이메일 주소를 입력하세요 : ");
+		String password = CommUtil.getStr("수정할 비밀번호를 입력하세요 : ");
 		
 		vo.setUserEmail(userEmail);
+		vo.setPassword(sha256.LockPassword(password));
 		int no = userDAO.updateUser(vo);
 		
 		

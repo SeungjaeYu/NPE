@@ -96,9 +96,13 @@ public class ReservationUI {
 	 * @param userNo
 	 */
 	public void deleteReserv(int userNo) {
+		List<ReservationVO> reservList = reservationDAO.reservList(userNo);
+		if (reservList.isEmpty()) {
+			System.out.println("예매 내역이 없습니다.");
+			return;
+		}
 		
 		int reservRemove = CommUtil.getInt("취소할 예매 번호를 입력하세요 : ");
-		List<ReservationVO> reservList = reservationDAO.reservList(userNo);
 		
 		while (reservRemove > reservList.size() || reservRemove < 0) {
 			System.out.println("잘못된 값을 입력하셨습니다.");

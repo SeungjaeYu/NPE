@@ -22,6 +22,4 @@ public interface UserDAO {
 
 	UserVO selectOneUserByUserNo(int userNo);
 	
-	// 비밀번호 변경
-	int updateUserByPassword(UserVO vo);
 }
