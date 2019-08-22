@@ -28,6 +28,9 @@ public class UserUI {
 	
 	
 	
+	/**
+	 * 회원가입
+	 */
 	public void join() {
 		UserVO userVO = new UserVO();
 		String userId = CommUtil.getStr("아이디를 입력하세요 : ");
@@ -54,6 +57,9 @@ public class UserUI {
 	
 	
 	
+	/**
+	 * 비밀번호 찾기
+	 */
 	public void findUser() {
 		
 		List<UserVO> list = userDAO.selectAdminList();
@@ -105,9 +111,12 @@ public class UserUI {
 	}
 	
 	
+	/**
+	 * 회원 전체목록 조회
+	 */
 	public void selectUserList() {
 		List<UserVO> userList = userDAO.selectAdminList();
-		System.out.println("회원정보");
+		System.out.println("∴회원정보");
 		System.out.println("아이디\t이메일\t가입일\t등급");
 		System.out.println("----------------------------------------");
 		if (userList.isEmpty()) {
@@ -124,7 +133,7 @@ public class UserUI {
 			
 		}
 		System.out.println("----------------------------------------");
-		System.out.println("0. 이전");
+		
 	} 
 	
 	 
@@ -142,11 +151,11 @@ public class UserUI {
 		System.out.println("등급 : " + userVO.getGradeName());
 		System.out.println("할인율 : " + (userVO.getDiscountRate() * 100) + "%" );
 		System.out.println("-------------------------------------");
-		System.out.println("1. 수정");
-		System.out.println("2. 삭제");
+		System.out.println("1. 회원정보수정");
+		System.out.println("2. 탈퇴");
 		System.out.println("0. 이전");
 		System.out.println("-------------------------------------");
-		int userChkNum = CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 ");
+		int userChkNum = CommUtil.getInt("메뉴 중 처리할 항목을 선택하세요 : ");
 		switch (userChkNum) {
 		case 1 : updateUser();	break;
 		case 2 : deleteUser();	break;
@@ -173,12 +182,12 @@ public class UserUI {
 		if (no == 0) {
 			session.rollback();
 			System.out.println("============================");
-			System.out.println("회원정보 수정이 실패하였습니다.");
+			System.out.println("회원정보 수정 실패하였습니다.");
 			return;
 		}
 		session.commit();
 		System.out.println("============================");
-		System.out.println("회원정보 수정이 완료되었습니다.");
+		System.out.println("회원정보 수정 완료되었습니다.");
 	}
 	
 	/**
@@ -187,9 +196,9 @@ public class UserUI {
 	 */
 	public void deleteUser() {
 
-		String delYN = CommUtil.getStr("정말로 회원 탈퇴를 하시겠습니까?(Y/N) ");
+		String delYN = CommUtil.getStr("정말로 회원 탈퇴를 하시겠습니까?(Y/N) : ");
 		if (adminChk) {
-			System.out.println("관리자는 아이디 삭제를 하실 수 없습니다. ");
+			System.out.println("관리자는 아이디 삭제를 할 수 없습니다. ");
 			return;
 		}
 		if (delYN.equalsIgnoreCase("Y")) {
@@ -197,14 +206,14 @@ public class UserUI {
 			if (no == 0) {
 				session.rollback();
 				System.out.println("============================");
-				System.out.println("회원삭제가 실패하였습니다. ");
+				System.out.println("회원 삭제 실패하였습니다. ");
 				System.out.println("============================");
 				return;
 			}
 				session.commit();
 				vo = null;
 				loginChk = false;
-				System.out.println("회원삭제가 완료되었습니다.");
+				System.out.println("회원 삭제 완료되었습니다.");
 				System.out.println("============================");
 				return;
 		}
@@ -214,8 +223,11 @@ public class UserUI {
 	
 
 	
+	/**
+	 * 로그아웃
+	 */
 	public void logout() {
-		System.out.println("현재 시간 : " + CommUtil.getDate());
+		System.out.print("현재 시간 : " + CommUtil.getDate());
 		System.out.println("에 안전하게 로그아웃 되었습니다.");
 		vo = null;
 		loginChk = false;
