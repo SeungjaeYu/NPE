@@ -97,7 +97,12 @@ public class CommUtil {
 		while (true) {
 			try {
 				System.out.print(msg);
-				return Integer.parseInt(sc.nextLine());
+				int num = Integer.parseInt(sc.nextLine());
+				if (num < 0) {
+					System.out.println("0보다 작은 수는 입력하실 수 없습니다. 다시 입력해주세요.");
+					continue;
+				}
+				return num;
 			} catch (Exception e) {
 				System.out.println("잘못된 값을 입력하셨습니다. 제대로 된 숫자를 넣어주세요");
 			}
