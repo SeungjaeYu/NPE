@@ -100,7 +100,6 @@ public class ReservationUI {
 	 * @param userNo
 	 */
 	public void deleteReserv(int userNo) {
-		CommUtil.clear();
 		List<ReservationVO> reservList = reservationDAO.reservList(userNo);
 		if (reservList.isEmpty()) {
 			System.out.println("예매 내역이 없습니다.");

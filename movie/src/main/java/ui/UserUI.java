@@ -185,7 +185,7 @@ public class UserUI {
 		}
 		System.out.println("----------------------------------------");
 		
-		CommUtil.clear(3);
+		//CommUtil.clear(3);
 	} 
 	
 	 

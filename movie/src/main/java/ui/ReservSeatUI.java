@@ -41,6 +41,7 @@ public class ReservSeatUI {
 	public void reservSeatList(int inningNo, int userNo) {
 		
 		reservOuter: while (true) {
+			CommUtil.clear();
 			// 전체 자리수 가져오기
 			InningVO seatTotSize = inningDAO.selectOneInning(inningNo);
 			if (seatTotSize == null) {
@@ -86,6 +87,7 @@ public class ReservSeatUI {
 			}
 			if (userNo == 0) {
 				System.out.println("비회원은 조회만 가능합니다.");
+				CommUtil.clear(2);
 				continue reservOuter;
 			} else if (userNo == 1) {
 				System.out.println("관리자는 예매를 하실 수 없습니다.");
