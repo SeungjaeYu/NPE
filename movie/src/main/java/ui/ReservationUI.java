@@ -39,6 +39,7 @@ public class ReservationUI {
 			case 1:
 				deleteReserv(userNo);  break;
 			case 0:
+				CommUtil.clear();
 				break reservOuter;
 			default:
 				System.out.println("잘못된 번호를 입력하셨습니다. 다시 입력해주세요.");
